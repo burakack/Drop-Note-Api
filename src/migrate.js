@@ -4,7 +4,7 @@ const db = require('./database');
 //add new migration files to array
 //add to last index of the array!
 var migratefiles = new Array(
-    './src/migrations/202206231018-createdatabase.sql',
+    './migrations/202206231018-createdatabase.sql',
 );
 //running sql files
 for(i=0;i<migratefiles.length;i++)
