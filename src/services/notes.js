@@ -16,7 +16,7 @@ async function notecreate(userid,title,notetext,isanonymus)
 async function noteupdate(id,notetext,isanonymus)
 {
     var date=await db.query("SELECT NOW()");
-    var note=await db.query("UPDATE notes SET notetext=$2,is_anonymus=$3,updated_at=$4 WHERE id=$1 ;"
+    var note=await db.query("UPDATE notes SET notetext=$2,is_anonymus=$3,updated_at=$4 WHERE id=$1 RETURNING * ;"
     ,[id,notetext,isanonymus,date.rows[0].now]
     ,(err,res)=>{
         if(err){
@@ -25,11 +25,11 @@ async function noteupdate(id,notetext,isanonymus)
     });
     return note.rows[0];
 }
-async function notedelete(id)
+async function notedelete(userid,title)
 {
     var date=await db.query("SELECT NOW()");
-    var note=await db.query("UPDATE notes SET deleted_at=$2 WHERE id=$1 ;"
-    ,[id,date.rows[0].now]
+    var note=await db.query("UPDATE notes SET deleted_at=$3 WHERE userid=$1 AND title=$2 RETURNING * ;"
+    ,[userid,title,date.rows[0].now]
     ,(err,res)=>{
         if(err){
             console.log(err);

@@ -20,8 +20,8 @@ router.route('/:slug')
 .delete(async (req,res)=>
 {
     var slug=req.params.slug;
-    var {userid, notetext, isanonymus}=req.body;
-    notes=await noteservice.deletenote()
+    var {userid}=req.body;
+    notes=await noteservice.deletenote(userid,slug)
     res.send(notes)
 })
 .put(async (req,res)=>
