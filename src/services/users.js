@@ -1,8 +1,28 @@
 const db= require("../database")
 const cryptojs=require('crypto-js')
 
-async function userget(nickname){
+async function usergetwithnickname(nickname){
     user=await db.query("SELECT * from users WHERE nickname=$1",[nickname]
+    ,(err,res)=>{
+        if(err){
+            console.log(err);
+        }
+    });
+    return user.rows[0] 
+}
+
+async function usergetwithemail(email){
+    user=await db.query("SELECT * from users WHERE nickname=$1",[email]
+    ,(err,res)=>{
+        if(err){
+            console.log(err);
+        }
+    });
+    return user.rows[0] 
+}
+
+async function usergetwithid(id){
+    user=await db.query("SELECT * from users WHERE nickname=$1",[id]
     ,(err,res)=>{
         if(err){
             console.log(err);
@@ -41,8 +61,8 @@ async function userchangepassword(password,id)
     var date=await db.query("SELECT NOW()");
     var password_salt = Math.random().toString(36).substring(2,20);
     var password_hash=cryptojs.AES.encrypt(password,date.rows[0].now.toString()+password_salt).toString()
-    user= await db.query("UPDATE SET password_salt=$1,password_hash=$2,updated_at=$3 RETURNING *"
-      ,[password_salt,password_hash,date.rows[0].now]
+    user= await db.query("UPDATE SET password_salt=$1,password_hash=$2,updated_at=$3 WHERE id=$4 RETURNING *"
+      ,[password_salt,password_hash,date.rows[0].now,id]
       ,(err,res)=>
     {
         console.log(err, res.rows[0])
@@ -50,7 +70,9 @@ async function userchangepassword(password,id)
     return user.rows[0] 
 }
 
-module.exports.getuser=userget
+module.exports.getuserwithid=usergetwithid
+module.exports.getuserwithemail=usergetwithemail
+module.exports.getuserwithnickname=usergetwithnickname
 module.exports.createuser=usercreate
 module.exports.deleteuser=userdelete
 module.exports.changepassworduser=userchangepassword
