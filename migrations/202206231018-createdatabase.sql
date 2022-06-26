@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS users(
     id serial PRIMARY KEY,
-	nickname VARCHAR ( 50 ) UNIQUE NOT NULL,
-	password_salt VARCHAR ( 50 ) NOT NULL,
+	nickname VARCHAR (50 ) UNIQUE NOT NULL,
+    email VARCHAR ( 50 ) UNIQUE NOT NULL,
+	password_salt VARCHAR ( 250 ) NOT NULL,
 	password_hash VARCHAR ( 250 ) NOT NULL,
 	created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
