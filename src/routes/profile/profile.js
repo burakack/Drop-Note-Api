@@ -1,18 +1,20 @@
 const express =require('express')
 const router = express.Router()
 const db=require('../../database')
+const userservice=require('../../services/users')
 
 router.get('/',(req,res)=>
 {
     console.log("Başarılı istek!")
     res.render('index')
 })
-router.route('/:id')
-.get((req,res)=>
+router.route('/:slug')
+.get(async (req,res)=>
 {
-    res.render('profile')
+    user=await userservice.getuser(req.params.slug)
+    res.send(user)
 })
-.post((req,res)=>
+.post(async (req,res)=>
 {
     var {title,description}=req.body
     res.send({title,description})

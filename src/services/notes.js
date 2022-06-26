@@ -1,6 +1,6 @@
 const db= require("../database")
 
-async function notecreate(userid,title,notetext,isanonymus)
+async function notescreate(userid,title,notetext,isanonymus)
 {
     var date=await db.query("SELECT NOW()");
     var note=await db.query("INSERT INTO notes (userid,title,notetext,is_anonymus,created_at) VALUES ($1,$2,$3,$4,$5) RETURNING *;"
@@ -13,7 +13,7 @@ async function notecreate(userid,title,notetext,isanonymus)
     return note.rows[0]
 }
 
-async function noteupdate(id,notetext,isanonymus)
+async function notesupdate(id,notetext,isanonymus)
 {
     var date=await db.query("SELECT NOW()");
     var note=await db.query("UPDATE notes SET notetext=$2,is_anonymus=$3,updated_at=$4 WHERE id=$1 RETURNING * ;"
@@ -25,7 +25,7 @@ async function noteupdate(id,notetext,isanonymus)
     });
     return note.rows[0];
 }
-async function notedelete(userid,title)
+async function notesdelete(userid,title)
 {
     var date=await db.query("SELECT NOW()");
     var note=await db.query("UPDATE notes SET deleted_at=$3 WHERE userid=$1 AND title=$2 RETURNING * ;"
@@ -40,7 +40,7 @@ async function notedelete(userid,title)
     });
     return note.rows[0]
 }
-async function notegetbytitle(title)
+async function notesgetbytitle(title)
 {
     var note=await db.query('SELECT * FROM notes WHERE title=$1'
     ,[title]
@@ -51,7 +51,7 @@ async function notegetbytitle(title)
     });
     return note.rows
 }
-async function notegetbyuserid(userid)
+async function notesgetbyuserid(userid)
 {
     var date=await db.query("SELECT NOW()");
     var note=await db.query("SELECT * FROM notes WHERE userid=$1"
@@ -64,8 +64,8 @@ async function notegetbyuserid(userid)
     return note.rows
 }
 
-module.exports.createnote=notecreate
-module.exports.updatenote=noteupdate
-module.exports.deletenote=notedelete
-module.exports.getnotebytitle=notegetbytitle
-module.exports.getnotebyuserid=notegetbyuserid
+module.exports.createnote=notescreate
+module.exports.updatenote=notesupdate
+module.exports.deletenote=notesdelete
+module.exports.getnotebytitle=notesgetbytitle
+module.exports.getnotebyuserid=notesgetbyuserid
