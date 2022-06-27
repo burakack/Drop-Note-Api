@@ -1,19 +1,20 @@
 const express= require("express")
 const db= require("./src/database")
 require('dotenv').config();
-nana=require("./src/services/notes")
+noteservice=require("./src/services/notes")
+authmiddleware=require('./src/pre_handlers/auth')
 var port=process.env.port
 const app=express()
-app.set('view engine', 'ejs');
+
 app.use(Logger)
 app.use(express.static("public")) //for using static structre
 app.use(express.urlencoded({extended:true})) // for taking body paramaters
 app.use(express.json()) //parsing json like query
 
 
-app.post('/',(req,res)=>
+app.post('/:slug',(req,res)=>
 {
-    nana.createnote(req.body.userid,req.body.title,req.body.text,req.body.isanon,)
+    notesservice.createnote(req.body.userid,req.params.slug,req.body.text,req.body.isanon,)
     console.log("OLUŞTURULDU!")
 })
 

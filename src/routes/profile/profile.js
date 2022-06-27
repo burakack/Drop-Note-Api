@@ -2,19 +2,14 @@ const express =require('express')
 const router = express.Router()
 const db=require('../../database')
 const userservice=require('../../services/users')
+const tokenservice=require('../../services/tokens')
 const cryptojs=require('crypto-js')
-
-router.get('/',(req,res)=>
-{
-    console.log("Başarılı istek!")
-    res.render('index')
-})
 
 router.route('/register')
 .post(async (req,res)=>
 {
-    var {nickname,email,password,confirmpass}=req.body
-    if(password==confirmpass)
+    var {nickname,email,password,cpassword}=req.body
+    if(password==cpassword)
     {
         user= await userservice.createuser(nickname,email,password)
         res.send(user)
@@ -25,15 +20,16 @@ router.route('/register')
 router.route('/login')
 .post(async (req,res)=>
 {
-    var {email,password}=req.body
+    var {id,email,password}=req.body
+    var token=await tokenservice.createtoken(id)
     user= await userservice.getuserwithemail(email)
     if (user!=null)
         {
-            var hash=user.rows[0].password_hash
-            var salt= user.rows[0].password_salt
-            var dbpassword=cryptojs.AES.decrypt(hash,salt)
+            var hash=user.password_hash
+            var salt= user.password_salt
+            var dbpassword=cryptojs.AES.decrypt(hash,salt).toString(cryptojs.enc.Utf8)
             if(dbpassword==password)
-                res.send({message:"LOGGED İN"})
+                res.send({message:"LOGGED İN",token:token.token})
             else
                 res.send({message:"WRONG PASSWORD"})
         }
@@ -44,7 +40,7 @@ router.route('/login')
 router.route('/:slug')
 .get(async (req,res)=>
 {
-    user=await userservice.getuser(req.params.slug)
+    user=await userservice.getuserwithnickname(req.params.slug)
     res.send(user)
 })
 module.exports=router

@@ -37,3 +37,8 @@ CREATE TABLE IF NOT EXISTS messages(
     updated_at TIMESTAMP,
     deleted_at TIMESTAMP
 );
+CREATE TABLE IF NOT EXISTS tokens(
+    userid int ,
+    token VARCHAR(200),
+    expired_at TIMESTAMP NOT NULL
+)

@@ -2,7 +2,8 @@ const express =require('express')
 const router = express.Router()
 const db=require('../../database')
 var noteservice=require('../../services/notes')
-
+var authmiddleware=require('../../pre_handlers/auth')
+router.use(authmiddleware.authenticationmid)
 router.route('/:slug')
 .get(async (req,res)=>
 {
@@ -13,7 +14,8 @@ router.route('/:slug')
 .post(async (req,res)=>
 {
     var slug=req.params.slug;
-    var {userid, notetext, isanonymus}=req.body;
+    var {userid,notetext, isanonymus}=req.body;
+    console.log(userid)
     notes=await noteservice.createnote(userid, slug, notetext, isanonymus);
     res.send(notes)
 })
