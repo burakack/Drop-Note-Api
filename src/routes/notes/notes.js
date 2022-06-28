@@ -9,7 +9,7 @@ router.route('/:slug')
 {
     var slug=req.params.slug;
     notes=await noteservice.getnotebytitle(slug)
-    res.send(notes)
+    res.send(200,notes)
 })
 .post(async (req,res)=>
 {
@@ -17,20 +17,20 @@ router.route('/:slug')
     var {userid,notetext, isanonymus}=req.body;
     console.log(userid)
     notes=await noteservice.createnote(userid, slug, notetext, isanonymus);
-    res.send(notes)
+    res.send(200,notes)
 })
 .delete(async (req,res)=>
 {
     var slug=req.params.slug;
     var {userid}=req.body;
     notes=await noteservice.deletenote(userid,slug)
-    res.send(notes)
+    res.send(200,notes)
 })
 .put(async (req,res)=>
 {
     var slug=req.params.slug;
     var {userid, notetext, isanonymus}=req.body;
     notes= await noteservice.createnote(userid, slug, notetext, isanonymus);
-    res.send(notes)
+    res.send(200,notes)
 })
 module.exports=router
