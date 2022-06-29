@@ -15,7 +15,6 @@ router.route('/:slug')
 {
     var slug=req.params.slug;
     var {userid,notetext, isanonymus}=req.body;
-    console.log(userid)
     notes=await noteservice.createnote(userid, slug, notetext, isanonymus);
     res.send(200,notes)
 })
@@ -28,9 +27,8 @@ router.route('/:slug')
 })
 .put(async (req,res)=>
 {
-    var slug=req.params.slug;
     var {userid, notetext, isanonymus}=req.body;
-    notes= await noteservice.createnote(userid, slug, notetext, isanonymus);
+    notes= await noteservice.updatenote(userid,req.params.slug, notetext, isanonymus);
     res.send(200,notes)
 })
 module.exports=router

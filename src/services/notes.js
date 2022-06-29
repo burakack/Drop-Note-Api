@@ -13,11 +13,11 @@ async function notescreate(userid,title,notetext,isanonymus)
     return note.rows[0]
 }
 
-async function notesupdate(id,notetext,isanonymus)
+async function notesupdate(id,title,notetext,isanonymus)
 {
     var date=await db.query("SELECT NOW()");
-    var note=await db.query("UPDATE notes SET notetext=$2,is_anonymus=$3,updated_at=$4 WHERE id=$1 RETURNING * ;"
-    ,[id,notetext,isanonymus,date.rows[0].now]
+    var note=await db.query("UPDATE notes SET notetext=$3,is_anonymus=$4,updated_at=$5 WHERE id=$1 AND title=$2 RETURNING * ;"
+    ,[id,title,notetext,isanonymus,date.rows[0].now]
     ,(err,res)=>{
         if(err){
             console.log(err);
@@ -64,8 +64,26 @@ async function notesgetbyuserid(userid)
     return note.rows
 }
 
+async function notesgetbynickname(nickname)
+{
+    var note=await db.query(`
+    SELECT userid,nickname,title,notetext,likecount,dislikecount,is_anonymus
+    FROM users
+    INNER JOIN notes
+    ON users.id = notes.userid WHERE nickname=$1;
+    `
+    ,[nickname]
+    ,(err,res)=>{
+        if(err){
+            console.log(err);
+        }
+    });
+    return note.rows
+}
 module.exports.createnote=notescreate
 module.exports.updatenote=notesupdate
 module.exports.deletenote=notesdelete
 module.exports.getnotebytitle=notesgetbytitle
 module.exports.getnotebyuserid=notesgetbyuserid
+
+module.exports.getnotebynickname=notesgetbynickname

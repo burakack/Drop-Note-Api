@@ -3,6 +3,7 @@ const router = express.Router()
 const db=require('../../database')
 const userservice=require('../../services/users')
 const tokenservice=require('../../services/tokens')
+const noteservice=require('../../services/notes')
 const cryptojs=require('crypto-js')
 
 router.route('/register')
@@ -21,8 +22,8 @@ router.route('/login')
 .post(async (req,res)=>
 {
     var {id,email,password}=req.body
-    var token=await tokenservice.createtoken(id)
     user= await userservice.getuserwithemail(email)
+    var token=await tokenservice.createtoken(user.id)
     if (user!=null)
         {
             var hash=user.password_hash
@@ -40,7 +41,7 @@ router.route('/login')
 router.route('/:slug')
 .get(async (req,res)=>
 {
-    user=await userservice.getuserwithnickname(req.params.slug)
-    res.send(user)
+    userandnotes=await noteservice.getnotebynickname(req.params.slug)
+    res.send(userandnotes)
 })
 module.exports=router
