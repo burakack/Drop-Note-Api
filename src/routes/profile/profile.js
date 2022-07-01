@@ -10,13 +10,12 @@ router.route('/register')
 .post(async (req,res)=>
 {
     var {nickname,email,password,cpassword}=req.body
-    if(password==cpassword)
+    if(password!=cpassword)
     {
-        user= await userservice.createuser(nickname,email,password)
-        res.send(user)
-    }
-    else
         res.send({error:"Passwords didn't match"})
+    }
+    user= await userservice.createuser(nickname,email,password)
+    res.send(user)
 })
 router.route('/login')
 .post(async (req,res)=>

@@ -1,7 +1,7 @@
 const db= require("../database")
 const cryptojs=require('crypto-js')
 
-async function usergetwithnickname(nickname){
+async function getuserwithnickname(nickname){
     user=await db.query("SELECT * from users WHERE nickname=$1",[nickname]
     ,(err,res)=>{
         if(err){
@@ -14,7 +14,7 @@ async function usergetwithnickname(nickname){
         return {message:"User not found nickname"}
 }
 
-async function usergetwithemail(email){
+async function getuserwithemail(email){
     user=await db.query("SELECT * from users WHERE email=$1",[email]
     ,(err,res)=>{
         if(err){
@@ -27,7 +27,7 @@ async function usergetwithemail(email){
         return {message:"User not found emailc"}
 }
 
-async function usergetwithid(id){
+async function getuserwithid(id){
     user=await db.query("SELECT * from users WHERE id=$1",[id]
     ,(err,res)=>{
         if(err){
@@ -41,7 +41,7 @@ async function usergetwithid(id){
      
 }
 
-async function usercreate(nickname,email,password){
+async function createuser(nickname,email,password){
     var date=await db.query("SELECT NOW()");
     var password_salt = Math.random().toString(36).substring(2,20)+date.rows[0].now.toString().substring(20,25);
     var password_hash=cryptojs.AES.encrypt(password,password_salt).toString()
@@ -53,7 +53,7 @@ async function usercreate(nickname,email,password){
     })
     return user.rows[0] 
 }
-async function userdelete(id)
+async function deleteuser(id)
 {
     var date=await db.query("SELECT NOW()");
     var user=await db.query("UPDATE users SET deleted_at=$1 WHERE id=$2 RETURNING * ;"
@@ -66,7 +66,7 @@ async function userdelete(id)
     return user.rows[0];
 }
 
-async function userchangepassword(password,id)
+async function changepassworduser(password,id)
 {
     var date=await db.query("SELECT NOW()");
     var password_salt = Math.random().toString(36).substring(2,20);
@@ -81,9 +81,12 @@ async function userchangepassword(password,id)
 }
 
 
-module.exports.getuserwithid=usergetwithid
-module.exports.getuserwithemail=usergetwithemail
-module.exports.getuserwithnickname=usergetwithnickname
-module.exports.createuser=usercreate
-module.exports.deleteuser=userdelete
-module.exports.changepassworduser=userchangepassword
+
+module.exports={
+    getuserwithid,
+    getuserwithemail,
+    getuserwithnickname,
+    createuser,
+    deleteuser,
+    changepassworduser,
+}

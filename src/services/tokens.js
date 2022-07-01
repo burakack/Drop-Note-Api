@@ -1,7 +1,7 @@
 const db= require("../database")
 const cryptojs=require('crypto-js')
 
-async function tokengetwithid(userid){
+async function gettokenwithid(userid){
     token=await db.query("SELECT * from tokens WHERE userid=$1"
     ,[userid]
     ,(err,res)=>{
@@ -12,7 +12,7 @@ async function tokengetwithid(userid){
     return token.rows
 }
 
-async function tokengetwithvalue(tokenvalue){
+async function gettokenwithvalue(tokenvalue){
     token=await db.query("SELECT * from tokens WHERE token=$1"
     ,[tokenvalue]
     ,(err,res)=>{
@@ -23,7 +23,7 @@ async function tokengetwithvalue(tokenvalue){
     return token.rows[0]
 }
 
-async function tokencreate(userid){
+async function createtoken(userid){
     const expired_at=new Date();
     expired_at.setDate(new Date().getDate() + 30);
     let random1 = (Math.random() + 1).toString(36).substring(7);
@@ -40,6 +40,9 @@ async function tokencreate(userid){
 }
 
 
-module.exports.gettokenwithid=tokengetwithid
-module.exports.createtoken=tokencreate
-module.exports.gettokenwithvalue=tokengetwithvalue
+
+module.exports={
+    gettokenwithid,
+    createtoken,
+    gettokenwithvalue
+}

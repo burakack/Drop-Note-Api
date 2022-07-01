@@ -1,6 +1,6 @@
 const db =require('../database')
 
-async function messagescreate(userid,to,message)
+async function createmessages(userid,to,message)
 {
     var date=await db.query("SELECT NOW()");
     var note=await db.query("INSERT INTO messages (fromuser,touser,messages,created_at) VALUES ($1,$2,$3,$4) RETURNING *;"
@@ -12,7 +12,7 @@ async function messagescreate(userid,to,message)
     });
     return note.rows[0]
 }
-async function messagesget(userid,to)
+async function getmessages(userid,to)
 {
     var note=await db.query('SELECT * FROM messages WHERE fromuser=$1 AND touser=$2'
     ,[userid,to]
@@ -24,7 +24,7 @@ async function messagesget(userid,to)
     return note.rows
 }
 
-async function messagesupdate(userid,id,message)
+async function updatemessages(userid,id,message)
 {
     var date=await db.query("SELECT NOW()");
     var note=await db.query("UPDATE messages SET messages=$1,updated_at=$2 WHERE id=$3 AND fromuser=$4  RETURNING *;"
@@ -37,7 +37,7 @@ async function messagesupdate(userid,id,message)
     return note.rows[0]
 }
 
-async function messagesdelete(userid,id)
+async function deletemessages(userid,id)
 {
     var date=await db.query("SELECT NOW()");
     var note=await db.query("UPDATE messages SET deleted_at=$2 WHERE id=$1 AND fromuser=$3 RETURNING *;"
@@ -50,7 +50,9 @@ async function messagesdelete(userid,id)
     return note.rows[0]
 }
 
-module.exports.createmessages=messagescreate
-module.exports.getmessages=messagesget
-module.exports.deletemessages=messagesdelete
-module.exports.updatemessages=messagesupdate
+module.exports={
+    createmessages,
+    getmessages,
+    deletemessages,
+    updatemessages
+}

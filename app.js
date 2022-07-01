@@ -3,11 +3,10 @@ const db= require("./src/database")
 require('dotenv').config();
 noteservice=require("./src/services/notes")
 authmiddleware=require('./src/pre_handlers/auth')
-var port=process.env.port
+const port=process.env.port
 const app=express()
 
 app.use(Logger)
-app.use(express.static("public")) //for using static structre
 app.use(express.urlencoded({extended:true})) // for taking body paramaters
 app.use(express.json()) //parsing json like query
 
