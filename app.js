@@ -12,17 +12,16 @@ app.use(express.urlencoded({extended:true})) // for taking body paramaters
 app.use(express.json()) //parsing json like query
 
 
-app.post('/:slug',(req,res)=>
-{
-    notesservice.createnote(req.body.userid,req.params.slug,req.body.text,req.body.isanon,)
-    console.log("OLUŞTURULDU!")
-})
 
 const profileRouter=require('./src/routes/profile/profile')
 app.use('/profile',profileRouter)
 
 const noterouter=require('./src/routes/notes/notes')
 app.use('/notes',noterouter)
+
+const messagerouter=require('./src/routes/messages/messages')
+app.use('/messages',messagerouter)
+
 
 
 
