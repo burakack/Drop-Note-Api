@@ -1,10 +1,10 @@
 const db =require('../database')
 
-async function messagescreate(to,message)
+async function messagescreate(userid,to,message)
 {
     var date=await db.query("SELECT NOW()");
-    var note=await db.query("INSERT INTO notes (fromuser,touser,messages,created_at) VALUES ($1,$2,$3,$4) RETURNING *;"
-    ,[req.body.userid,to,message,date.rows[0].now]
+    var note=await db.query("INSERT INTO messages (fromuser,touser,messages,created_at) VALUES ($1,$2,$3,$4) RETURNING *;"
+    ,[userid,to,message,date.rows[0].now]
     ,(err,res)=>{
         if(err){
             console.log(err);
@@ -12,10 +12,10 @@ async function messagescreate(to,message)
     });
     return note.rows[0]
 }
-async function messagesget(to)
+async function messagesget(userid,to)
 {
     var note=await db.query('SELECT * FROM messages WHERE fromuser=$1 AND touser=$2'
-    ,[req.body.userid]
+    ,[userid,to]
     ,(err,res)=>{
         if(err){
             console.log(err);
@@ -24,11 +24,11 @@ async function messagesget(to)
     return note.rows
 }
 
-async function messagesupdate(id,message)
+async function messagesupdate(userid,id,message)
 {
     var date=await db.query("SELECT NOW()");
-    var note=await db.query("UPDATE notes SET messages=$3,updated_at=$4 WHERE id=$5  RETURNING *;"
-    ,[message,date.rows[0].now,id]
+    var note=await db.query("UPDATE messages SET messages=$1,updated_at=$2 WHERE id=$3 AND fromuser=$4  RETURNING *;"
+    ,[message,date.rows[0].now,id,userid]
     ,(err,res)=>{
         if(err){
             console.log(err);
@@ -37,11 +37,11 @@ async function messagesupdate(id,message)
     return note.rows[0]
 }
 
-async function messagesdelete(id)
+async function messagesdelete(userid,id)
 {
     var date=await db.query("SELECT NOW()");
-    var note=await db.query("UPDATE notes SET deleted_at=$2 WHERE id=$1 RETURNING *;"
-    ,[req.body.userid,date.rows[0].now]
+    var note=await db.query("UPDATE messages SET deleted_at=$2 WHERE id=$1 AND fromuser=$3 RETURNING *;"
+    ,[id,date.rows[0].now,userid]
     ,(err,res)=>{
         if(err){
             console.log(err);

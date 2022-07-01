@@ -8,25 +8,26 @@ router.use(authmiddleware.authenticationmid)
 router.route('')
 .get(async (req,res)=>
 {
-    messages=await messageservice.getmessages(req.body.to)
-    res.send(200,notes)
+    var {to}=req.body;
+    messages=await messageservice.getmessages(req.body.userid,to)
+    res.send(200,messages)
 })
 .post(async (req,res)=>
 {
     var {to,message}=req.body;
-    messages=await messageservice.createmessages(to,message)
+    messages=await messageservice.createmessages(req.body.userid,to,message)
     res.send(200,messages)
 })
 .delete(async (req,res)=>
 {
     var {id}=req.body;
-    messages=await messageservice.deletemessages(id)
+    messages=await messageservice.deletemessages(req.body.userid,id)
     res.send(200,messages)
 })
 .put(async (req,res)=>
 {
     var {id,message}=req.body;
-    messages= await messageservice.updatemessages(id,message)
+    messages= await messageservice.updatemessages(req.body.userid,id,message)
     res.send(200,messages)
 })
 module.exports=router
