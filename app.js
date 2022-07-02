@@ -21,6 +21,9 @@ app.use('/notes',noterouter)
 const messagerouter=require('./src/routes/messages/messages')
 app.use('/messages',messagerouter)
 
+const friendrouter=require('./src/routes/friends/friends')
+app.use('/friends',friendrouter)
+
 
 
 
