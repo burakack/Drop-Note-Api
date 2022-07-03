@@ -24,7 +24,7 @@ async function getuserwithemail(email){
     if(user.rowCount!=0)
         return user.rows[0]
     else
-        return {message:"User not found emailc"}
+        return {message:"User not found email"}
 }
 
 async function getuserwithid(id){

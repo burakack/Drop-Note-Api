@@ -6,7 +6,6 @@ authmiddleware=require('./src/pre_handlers/auth')
 const port=process.env.port
 const app=express()
 
-app.use(Logger)
 app.use(express.urlencoded({extended:true})) // for taking body paramaters
 app.use(express.json()) //parsing json like query
 
@@ -28,11 +27,8 @@ app.use('/friends',friendrouter)
 
 
 
-function Logger(req,res,next)
-{
-    console.log(req.url)
-    next()
-}
 app.listen(port,()=>{
     console.log(`🚀 Server listening to ${`http://localhost:${port}`} `);
 })
+
+module.exports=app

@@ -15,7 +15,7 @@ async function createfriend(requestee_id,requester_id)
 
 async function getfriend(userid)
 {
-    var friend=await db.query("SELECT requester_id,requested_on,Approved_on,Declined_on  FROM friends INNER JOIN users ON users.id=friends.requestee_id OR users.id=friends.requester_id WHERE users.id=$1 ;"
+    var friend=await db.query("SELECT requestee_id, requester_id,requested_on,Approved_on,Declined_on  FROM friends INNER JOIN users ON users.id=friends.requestee_id OR users.id=friends.requester_id WHERE users.id=$1 ;"
     ,[userid]
     ,(err,res)=>{
         if(err){
