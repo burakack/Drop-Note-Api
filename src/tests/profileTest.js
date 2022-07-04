@@ -80,20 +80,51 @@ describe('POST /profile/login', function() {
             password:user.password})
         .expect(200, done);
         });
-    it('400-Wrong password', function(done) {
+    it('401-Wrong password', function(done) {
         request(app)
         .post('/profile/login')
         .send({
             email:user.email,
             password:"nanelimon"})
-        .expect(400, done);
+        .expect(401,done);
         });
-    it('400-No users registered with this email', function(done) {
+    it('401-No users registered with this email', function(done) {
         request(app)
         .post('/profile/login')
         .send({
             email:`abdaajı${Date.now()}@hotmail.com`,
             password:"123"})
-        .expect(400, done);
+        .expect(401, done);
         });
 });
+
+describe(`GET /profile/:slug`, function() {
+    it('200-Successfull getting user info', function(done) {
+        request(app)
+        .get(`/profile/${user.nickname}`)
+        .send()
+        .expect(200, done);
+    });
+    it('404-User not found', function(done) {
+        request(app)
+        .get('/profile/dpopghdfo')
+        .send()
+        .expect(404, done);
+        });
+})
+
+
+describe(`GET /profile/:slug/notes`, function() {
+    it('200-Successfull getting user notes', function(done) {
+        request(app)
+        .get(`/profile/${user.nickname}/notes`)
+        .send()
+        .expect(200, done);
+    });
+    it('404-No user with this nickname', function(done) {
+        request(app)
+        .get('/profile/dpopghdfo/notes')
+        .send()
+        .expect(404, done);
+        });
+})

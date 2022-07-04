@@ -41,16 +41,28 @@ router.route('/login')
             if(dbpassword==password)
                 res.status(200).send({message:"LOGGED İN",token:token.token})
             else
-                res.status(400).send({message:"WRONG PASSWORD"})
+                res.status(401).send({message:"WRONG PASSWORD"})
         }
     else            
-        res.status(400).send({message:"There is no registered user with this email "})
+        res.status(401).send({message:"There is no registered user with this email "})
 })
 
 router.route('/:slug')
 .get(async (req,res)=>
 {
+    user=await userservice.getuserwithnickname(req.params.slug)
+    if(user.message!="User not found nickname")
+        res.status(200).send(user)
+    res.status(404).send({message:"User not found nickname"})
+});
+
+
+router.route('/:slug/notes')
+.get(async (req,res)=>
+{
     userandnotes=await noteservice.getnotebynickname(req.params.slug)
-    res.send(userandnotes)
-})
+    if(userandnotes.message!="User not found nickname")
+        res.status(200).send(userandnotes)
+    res.status(404).send({message:"User not found nickname"})
+});
 module.exports=router

@@ -1,4 +1,5 @@
 const db= require("../database")
+const userservice=require("../services/users")
 
 async function createnote(userid,title,notetext,isanonymus)
 {
@@ -66,19 +67,24 @@ async function getnotebyuserid(userid)
 
 async function getnotebynickname(nickname)
 {
-    var note=await db.query(`
-    SELECT userid,nickname,title,notetext,likecount,dislikecount,is_anonymus
-    FROM users
-    INNER JOIN notes
-    ON users.id = notes.userid WHERE nickname=$1;
-    `
-    ,[nickname]
-    ,(err,res)=>{
-        if(err){
-            console.log(err);
-        }
-    });
-    return note.rows
+    user=await userservice.getuserwithnickname(nickname);
+    if(user.message!='User not found nickname'){
+        var note=await db.query(`
+        SELECT title,notetext,likecount,dislikecount,is_anonymus
+        FROM users
+        INNER JOIN notes
+        ON users.id = notes.userid WHERE nickname=$1;
+        `
+        ,[nickname]
+        ,(err,res)=>{
+            if(err){
+                console.log(err);
+            }}
+        );
+        return note.rows
+    }
+    return {message:"User not found nickname"}
+    
 }
 
 module.exports={
