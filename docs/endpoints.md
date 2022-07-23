@@ -1,5 +1,4 @@
 # Endpoints
----
 ## USER
 ### POST /api/profiles/register
 - REQUEST
@@ -94,16 +93,34 @@
 - RESPONSE
 ```javascript
     {
-        "id":,
-        "userid":,
-        "title":,
-        "notetext":,
-        "likecount",
-        "dislikecount",
-        "is_anonymus":,
-        "created_at":,
-        "updated_at":,
-        "deleted_at":
+        {
+            "id":,
+            "userid":,
+            "title":,
+            "notetext":,
+            "likecount",
+            "dislikecount",
+            "is_anonymus":,
+            "created_at":,
+            "updated_at":,
+            "deleted_at":
+        },
+        {
+            "id":,
+            "userid":,
+            "title":,
+            "notetext":,
+            "likecount",
+            "dislikecount",
+            "is_anonymus":,
+            "created_at":,
+            "updated_at":,
+            "deleted_at":
+        }
+        .
+        .
+        .
+
     }
 ```
 ### POST /api/notes/:slug
