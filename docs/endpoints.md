@@ -1,4 +1,6 @@
 # Endpoints
+---
+## USER
 ### POST /api/profiles/register
 - REQUEST
 ```javascript
@@ -81,6 +83,8 @@
         .
     }
 ``` 
+--
+## NOTES
 ### GET /api/notes/:slug
 - REQUEST
 ```javascript
@@ -170,6 +174,8 @@
         "deleted_at":
     }
 ```
+---
+## MESSAGES
 ### GET /api/notes/:slug
 - REQUEST
 ```javascript
