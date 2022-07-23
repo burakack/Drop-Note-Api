@@ -11,8 +11,8 @@ const user = {
     
   };
 
-describe('POST /profile/register', function() {
-    it('201-Successful registration scenario', function(done) {
+describe('POST /profile/register', ()=>{
+    it('201-Successful registration scenario', (done)=> {
         request(app)
         .post('/profile/register')
         .send(
@@ -26,7 +26,7 @@ describe('POST /profile/register', function() {
         .expect(201, done);
         });
 
-    it('400-Passwords need match', function(done) {
+    it('400-Passwords need match', (done)=> {
         request(app)
         .post('/profile/register')
         .send(
@@ -40,7 +40,7 @@ describe('POST /profile/register', function() {
         .expect(400, done);
         });
 
-    it('400-E-mail need to be unique', function(done) {
+    it('400-E-mail need to be unique', (done)=> {
         var email =`testuser${Date.now()}@hotmail.com`
         request(app)
         .post('/profile/register')
@@ -55,7 +55,7 @@ describe('POST /profile/register', function() {
         .expect(400, done);
         });
 
-    it('400-Nickname need to be unique', function(done) {
+    it('400-Nickname need to be unique',  (done)=> {
         var nickname =`test ${Date.now()} user `
         request(app)
         .post('/profile/register')
@@ -71,8 +71,8 @@ describe('POST /profile/register', function() {
         });
     });
 
-describe('POST /profile/login', function() {
-    it('200-Succesful login scenario', function(done) {
+describe('POST /profile/login', ()=> {
+    it('200-Succesful login scenario', (done)=> {
         request(app)
         .post('/profile/login')
         .send({
@@ -80,7 +80,7 @@ describe('POST /profile/login', function() {
             password:user.password})
         .expect(200, done);
         });
-    it('401-Wrong password', function(done) {
+    it('401-Wrong password', (done)=> {
         request(app)
         .post('/profile/login')
         .send({
@@ -88,7 +88,7 @@ describe('POST /profile/login', function() {
             password:"nanelimon"})
         .expect(401,done);
         });
-    it('401-No users registered with this email', function(done) {
+    it('401-No users registered with this email', (done)=> {
         request(app)
         .post('/profile/login')
         .send({
@@ -98,14 +98,14 @@ describe('POST /profile/login', function() {
         });
 });
 
-describe(`GET /profile/:slug`, function() {
-    it('200-Successfull getting user info', function(done) {
+describe(`GET /profile/:slug`, ()=> {
+    it('200-Successfull getting user info', (done)=> {
         request(app)
         .get(`/profile/${user.nickname}`)
         .send()
         .expect(200, done);
     });
-    it('404-User not found', function(done) {
+    it('404-User not found', (done)=> {
         request(app)
         .get('/profile/dpopghdfo')
         .send()
