@@ -193,7 +193,7 @@
 ```
 ---
 ## MESSAGES
-### GET /api/notes/:slug
+### GET /api/messages/:slug
 - REQUEST
 ```javascript
     {
@@ -227,7 +227,7 @@
     }
 ```
 
-### POST /api/notes/:slug
+### POST /api/messages/:slug
 - REQUEST
 ```javascript
     {
@@ -250,7 +250,7 @@
     }
 ```
 
-### DELETE /api/notes/:slug
+### UPDATE /api/messages/:slug
 - REQUEST
 ```javascript
     {
@@ -271,7 +271,7 @@
         }
     }
 ```
-### DELETE /api/notes/:slug
+### DELETE /api/messages/:slug
 - REQUEST
 ```javascript
     {
