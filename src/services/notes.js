@@ -43,7 +43,7 @@ async function deletenote(userid,title)
 }
 async function getnotebytitle(title)
 {
-    var note=await db.query('SELECT nickname,title,notetext,is_anonymus,likecount,dislikecount,notes.created_at,notes.updated_at,notes.deleted_at FROM notes INNER JOIN users ON notes.userid=users.id WHERE title=$1'
+    var note=await db.query('SELECT userid, nickname,title,notetext,is_anonymus,likecount,dislikecount,notes.created_at,notes.updated_at,notes.deleted_at FROM notes INNER JOIN users ON notes.userid=users.id WHERE title=$1'
     ,[title]
     ,(err,res)=>{
         if(err){
