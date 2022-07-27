@@ -7,6 +7,17 @@ const noteservice=require('../../services/notes')
 const cryptojs=require('crypto-js')
 const { response } = require('express')
 
+router.route('/')
+.get(async (req,res)=>
+{
+    tokenn= await tokenservice.gettokenwithvalue(req.headers.access_token)
+    user=await userservice.getuserwithid(tokenn.userid)
+    if(user.message!="User not found id")
+        res.status(200).send(user)
+    else
+        res.status(404).send({message:"User not found id"})
+});
+
 router.route('/register')
 .post(async (req,res)=>
 {
@@ -48,7 +59,7 @@ router.route('/login')
             var salt= user.password_salt
             var dbpassword=cryptojs.AES.decrypt(hash,salt).toString(cryptojs.enc.Utf8)
             if(dbpassword==password)
-                res.status(200).send({message:"LOGGED İN",token:token.token})
+                res.status(200).send({message:"LOGGED İN",token:token})
             else
                 res.status(401).send({message:"WRONG PASSWORD"})
         }

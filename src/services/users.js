@@ -28,7 +28,7 @@ async function getuserwithemail(email){
 }
 
 async function getuserwithid(id){
-    user=await db.query("SELECT * from users WHERE id=$1",[id]
+    user=await db.query("SELECT id,nickname,email,created_at from users WHERE id=$1",[id]
     ,(err,res)=>{
         if(err){
             console.log(err);
