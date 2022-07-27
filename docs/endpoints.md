@@ -1,6 +1,6 @@
 # Endpoints
 ## USER
-### POST /api/profiles/register
+### POST /api/profile/register
 - REQUEST
 ```javascript
     {
@@ -21,7 +21,7 @@
     }
 ``` 
 
-### POST /api/profiles/login
+### POST /api/profile/login
 - REQUEST
 ```javascript
     {
@@ -37,7 +37,7 @@
     }
 ``` 
 
-### GET /api/profiles/:slug
+### GET /api/profile/:id
 - REQUEST
 ```javascript
     {
@@ -54,7 +54,7 @@
     }
 ``` 
 
-### GET /api/profiles/:slug/notes
+### GET /api/profile/:slug/notes
 - REQUEST
 ```javascript
     {

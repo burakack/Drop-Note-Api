@@ -5,6 +5,7 @@ const userservice=require('../../services/users')
 const tokenservice=require('../../services/tokens')
 const noteservice=require('../../services/notes')
 const cryptojs=require('crypto-js')
+const { response } = require('express')
 
 router.route('/register')
 .post(async (req,res)=>
@@ -12,20 +13,28 @@ router.route('/register')
     var {nickname,email,password,cpassword}=req.body
     useremail= await userservice.getuserwithemail(email)
     usernickname= await userservice.getuserwithnickname(nickname)
+    response.error=""
     if(useremail.message != 'User not found email')
     {
-        res.status(400).send({error:"E-mail need to be unique"})
+        response.error +="E-mail need to be unique "
     }
     if(usernickname.message !='User not found nickname')
     {
-        res.status(400).send({error:"Nickname need to be unique"})
+        response.error +="Nickname need to be unique "
     }
     if(password!=cpassword)
     {
-        res.status(400).send({error:"Passwords didn't match"})
+        response.error +="E-mail need to be unique "
     }
-    user= await userservice.createuser(nickname,email,password)
-    res.status(201).send(user)
+    if(response.error!="")
+    {
+        res.status(400).send(response)
+    }
+    else
+    {
+        user= await userservice.createuser(nickname,email,password)
+        res.status(201).send(user)
+    }
 })
 router.route('/login')
 .post(async (req,res)=>
@@ -50,10 +59,10 @@ router.route('/login')
 router.route('/:slug')
 .get(async (req,res)=>
 {
-    user=await userservice.getuserwithnickname(req.params.slug)
-    if(user.message!="User not found nickname")
+    user=await userservice.getuserwithid(req.params.slug)
+    if(user.message!="User not found id")
         res.status(200).send(user)
-    res.status(404).send({message:"User not found nickname"})
+    res.status(404).send({message:"User not found id"})
 });
 
 

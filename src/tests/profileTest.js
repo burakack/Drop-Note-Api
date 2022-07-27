@@ -4,6 +4,7 @@ var request=require(('supertest'))
 app=require('../../app')
 
 const user = {
+    id:3,
     nickname: `TESTUSER${Date.now()}`,
     email: `abdaajı${Date.now()}@hotmail.com`,
     password: '123',
@@ -98,16 +99,16 @@ describe('POST /profile/login', ()=> {
         });
 });
 
-describe(`GET /profile/:slug`, ()=> {
+describe(`GET /profile/:id`, ()=> {
     it('200-Successfull getting user info', (done)=> {
         request(app)
-        .get(`/profile/${user.nickname}`)
+        .get(`/profile/${user.id}`)
         .send()
         .expect(200, done);
     });
     it('404-User not found', (done)=> {
         request(app)
-        .get('/profile/dpopghdfo')
+        .get('/profile/1000000000')
         .send()
         .expect(404, done);
         });
