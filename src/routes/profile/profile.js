@@ -73,7 +73,8 @@ router.route('/:slug')
     user=await userservice.getuserwithid(req.params.slug)
     if(user.message!="User not found id")
         res.status(200).send(user)
-    res.status(404).send({message:"User not found id"})
+    else
+        res.status(404).send({message:"User not found id"})
 });
 
 
@@ -83,6 +84,7 @@ router.route('/:slug/notes')
     userandnotes=await noteservice.getnotebynickname(req.params.slug)
     if(userandnotes.message!="User not found nickname")
         res.status(200).send(userandnotes)
-    res.status(404).send({message:"User not found nickname"})
+    else 
+        res.status(404).send({message:"User not found nickname"})
 });
 module.exports=router

@@ -1,5 +1,24 @@
 # Endpoints
 ## USER
+
+
+### POST /api/profile/
+- REQUEST
+```javascript
+    {
+    }
+``` 
+- RESPONSE
+```javascript
+    {
+        "id":,
+        "nickname":,
+        "email":,
+        "created_at":
+    }
+``` 
+
+
 ### POST /api/profile/register
 - REQUEST
 ```javascript
