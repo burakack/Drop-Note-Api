@@ -166,7 +166,7 @@
     }
 ```
 
-### DELETE /api/notes/:slug
+### DELETE /api/notes/:id
 - REQUEST
 ```javascript
     {

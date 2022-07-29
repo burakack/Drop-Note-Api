@@ -3,8 +3,7 @@ var expect = require('chai').expect
 var request=require(('supertest'))
 app=require('../../app')
 
-const user = {
-    id:3,
+var user = {
     nickname: `TESTUSER${Date.now()}`,
     email: `abdaajı${Date.now()}@hotmail.com`,
     password: '123',
@@ -79,7 +78,13 @@ describe('POST /profile/login', ()=> {
         .send({
             email:user.email,
             password:user.password})
-        .expect(200, done);
+            .end(function (err,res){
+                user.token=res.body.token.token
+                user.id=res.body.token.userid
+                expect(res.body.token.token).not.equals(null);
+                done()
+            }
+            )
         });
     it('401-Wrong password', (done)=> {
         request(app)
@@ -129,3 +134,4 @@ describe(`GET /profile/:slug/notes`, function() {
         .expect(404, done);
         });
 })
+exports.user=user

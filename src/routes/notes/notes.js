@@ -9,26 +9,30 @@ router.route('/:slug')
 {
     var slug=req.params.slug;
     notes=await noteservice.getnotebytitle(slug)
-    res.send(200,notes)
+    res.status(200).send(notes)
 })
 .post(async (req,res)=>
 {
     var slug=req.params.slug;
     var {userid,notetext, isanonymus}=req.body;
-    notes=await noteservice.createnote(userid, slug, notetext, isanonymus);
-    res.send(200,notes)
+    if(notetext==null||isanonymus==null)
+        res.status(400).send(notes);
+    else{
+        notes=await noteservice.createnote(userid, slug, notetext, isanonymus);
+        res.status(200).send(notes)
+    }
 })
 .delete(async (req,res)=>
 {
     var slug=req.params.slug;
     var {userid}=req.body;
     notes=await noteservice.deletenote(userid,slug)
-    res.send(200,notes)
+    res.status(200).send(notes)
 })
 .put(async (req,res)=>
 {
     var {userid, notetext, isanonymus}=req.body;
     notes= await noteservice.updatenote(userid,req.params.slug, notetext, isanonymus);
-    res.send(200,notes)
+    res.status(200).send(notes)
 })
 module.exports=router
