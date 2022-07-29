@@ -212,7 +212,7 @@
 ```
 ---
 ## MESSAGES
-### GET /api/messages/:slug
+### GET /api/messages/
 - REQUEST
 ```javascript
     {
@@ -246,7 +246,7 @@
     }
 ```
 
-### POST /api/messages/:slug
+### POST /api/messages/
 - REQUEST
 ```javascript
     {
@@ -269,7 +269,7 @@
     }
 ```
 
-### UPDATE /api/messages/:slug
+### UPDATE /api/messages/
 - REQUEST
 ```javascript
     {
@@ -290,7 +290,7 @@
         }
     }
 ```
-### DELETE /api/messages/:slug
+### DELETE /api/messages/
 - REQUEST
 ```javascript
     {

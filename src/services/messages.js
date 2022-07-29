@@ -14,7 +14,7 @@ async function createmessages(userid,to,message)
 }
 async function getmessages(userid,to)
 {
-    var note=await db.query('SELECT * FROM messages WHERE fromuser=$1 AND touser=$2'
+    var note=await db.query('SELECT * FROM messages WHERE fromuser=$1 AND touser=$2 OR touser=$1 AND fromuser=$2'
     ,[userid,to]
     ,(err,res)=>{
         if(err){
