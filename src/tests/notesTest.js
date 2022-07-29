@@ -70,5 +70,17 @@ token.then(function(result) {
             .expect(200, done);
             })
     });
+    describe('DELETE /notes/:slug', ()=>{
+        it('200-Successful Delete note', (done)=> {
+            request(app)
+            .put('/notes/istanbul')
+            .set('access_token',result[0].token)
+            .send(
+                {
+                }
+            )
+            .expect(200, done);
+            })
+    });
  })
  

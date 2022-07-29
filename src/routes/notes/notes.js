@@ -26,7 +26,7 @@ router.route('/:slug')
 {
     var slug=req.params.slug;
     var {userid}=req.body;
-    notes=await noteservice.deletenote(userid,slug)
+    notes=await noteservice.deletenote(slug,userid)
     res.status(200).send(notes)
 })
 .put(async (req,res)=>
