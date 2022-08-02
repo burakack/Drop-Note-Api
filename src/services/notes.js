@@ -26,24 +26,21 @@ async function updatenote(id,title,notetext,isanonymus)
     });
     return note.rows[0];
 }
-async function deletenote(title,id)
+async function deletenote(noteid,userid)
 {
     var date=await db.query("SELECT NOW()");
-    var note=await db.query("UPDATE notes SET deleted_at=$3 WHERE title=$1 AND userid=$2 RETURNING * ;"
-    ,[title,id,date.rows[0].now]
+    var note=await db.query("UPDATE notes SET deleted_at=$3 WHERE  id=$2 AND userid=$1 RETURNING * ;"
+    ,[userid,noteid,date.rows[0].now]
     ,(err,res)=>{
         if(err){
-            console.log(err);
-        }
-        else{
-            console.log(note.rows[0])
+            return err;
         }
     });
     return note.rows[0]
 }
 async function getnotebytitle(title)
 {
-    var note=await db.query('SELECT userid, nickname,title,notetext,is_anonymus,likecount,dislikecount,notes.created_at,notes.updated_at,notes.deleted_at FROM notes INNER JOIN users ON notes.userid=users.id WHERE title=$1'
+    var note=await db.query('SELECT notes.id,userid, nickname,title,notetext,is_anonymus,likecount,dislikecount,notes.created_at,notes.updated_at,notes.deleted_at FROM notes INNER JOIN users ON notes.userid=users.id WHERE title=$1'
     ,[title]
     ,(err,res)=>{
         if(err){
@@ -70,7 +67,7 @@ async function getnotebynickname(nickname)
     user=await userservice.getuserwithnickname(nickname);
     if(user.message!='User not found nickname'){
         var note=await db.query(`
-        SELECT title,notetext,likecount,dislikecount,is_anonymus
+        SELECT notes.id,title,notetext,likecount,dislikecount,is_anonymus,notes.created_at,notes.updated_at,notes.deleted_at
         FROM users
         INNER JOIN notes
         ON users.id = notes.userid WHERE nickname=$1;
