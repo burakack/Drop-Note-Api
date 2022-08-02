@@ -1,6 +1,25 @@
 # Endpoints
 ## USER
-### POST /api/profiles/register
+
+
+### POST /api/profile/
+- REQUEST
+```javascript
+    {
+    }
+``` 
+- RESPONSE
+```javascript
+    {
+        "id":,
+        "nickname":,
+        "email":,
+        "created_at":
+    }
+``` 
+
+
+### POST /api/profile/register
 - REQUEST
 ```javascript
     {
@@ -21,7 +40,7 @@
     }
 ``` 
 
-### POST /api/profiles/login
+### POST /api/profile/login
 - REQUEST
 ```javascript
     {
@@ -37,7 +56,7 @@
     }
 ``` 
 
-### GET /api/profiles/:slug
+### GET /api/profile/:id
 - REQUEST
 ```javascript
     {
@@ -54,7 +73,7 @@
     }
 ``` 
 
-### GET /api/profiles/:slug/notes
+### GET /api/profile/:slug/notes
 - REQUEST
 ```javascript
     {
@@ -147,7 +166,7 @@
     }
 ```
 
-### DELETE /api/notes/:slug
+### DELETE /api/notes/:id
 - REQUEST
 ```javascript
     {
@@ -193,7 +212,7 @@
 ```
 ---
 ## MESSAGES
-### GET /api/notes/:slug
+### GET /api/messages/
 - REQUEST
 ```javascript
     {
@@ -227,7 +246,7 @@
     }
 ```
 
-### POST /api/notes/:slug
+### POST /api/messages/
 - REQUEST
 ```javascript
     {
@@ -250,7 +269,7 @@
     }
 ```
 
-### DELETE /api/notes/:slug
+### UPDATE /api/messages/
 - REQUEST
 ```javascript
     {
@@ -271,7 +290,7 @@
         }
     }
 ```
-### DELETE /api/notes/:slug
+### DELETE /api/messages/
 - REQUEST
 ```javascript
     {

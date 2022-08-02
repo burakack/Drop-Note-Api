@@ -5,6 +5,18 @@ const userservice=require('../../services/users')
 const tokenservice=require('../../services/tokens')
 const noteservice=require('../../services/notes')
 const cryptojs=require('crypto-js')
+const { response } = require('express')
+
+router.route('/')
+.get(async (req,res)=>
+{
+    tokenn= await tokenservice.gettokenwithvalue(req.headers.access_token)
+    user=await userservice.getuserwithid(tokenn.userid)
+    if(user.message!="User not found id")
+        res.status(200).send(user)
+    else
+        res.status(404).send({message:"User not found id"})
+});
 
 router.route('/register')
 .post(async (req,res)=>
@@ -12,20 +24,28 @@ router.route('/register')
     var {nickname,email,password,cpassword}=req.body
     useremail= await userservice.getuserwithemail(email)
     usernickname= await userservice.getuserwithnickname(nickname)
+    response.error=""
     if(useremail.message != 'User not found email')
     {
-        res.status(400).send({error:"E-mail need to be unique"})
+        response.error +="E-mail need to be unique "
     }
     if(usernickname.message !='User not found nickname')
     {
-        res.status(400).send({error:"Nickname need to be unique"})
+        response.error +="Nickname need to be unique "
     }
     if(password!=cpassword)
     {
-        res.status(400).send({error:"Passwords didn't match"})
+        response.error +="E-mail need to be unique "
     }
-    user= await userservice.createuser(nickname,email,password)
-    res.status(201).send(user)
+    if(response.error!="")
+    {
+        res.status(400).send(response)
+    }
+    else
+    {
+        user= await userservice.createuser(nickname,email,password)
+        res.status(201).send(user)
+    }
 })
 router.route('/login')
 .post(async (req,res)=>
@@ -39,7 +59,7 @@ router.route('/login')
             var salt= user.password_salt
             var dbpassword=cryptojs.AES.decrypt(hash,salt).toString(cryptojs.enc.Utf8)
             if(dbpassword==password)
-                res.status(200).send({message:"LOGGED İN",token:token.token})
+                res.status(200).send({message:"LOGGED İN",token:token})
             else
                 res.status(401).send({message:"WRONG PASSWORD"})
         }
@@ -50,10 +70,11 @@ router.route('/login')
 router.route('/:slug')
 .get(async (req,res)=>
 {
-    user=await userservice.getuserwithnickname(req.params.slug)
-    if(user.message!="User not found nickname")
+    user=await userservice.getuserwithid(req.params.slug)
+    if(user.message!="User not found id")
         res.status(200).send(user)
-    res.status(404).send({message:"User not found nickname"})
+    else
+        res.status(404).send({message:"User not found id"})
 });
 
 
@@ -63,6 +84,7 @@ router.route('/:slug/notes')
     userandnotes=await noteservice.getnotebynickname(req.params.slug)
     if(userandnotes.message!="User not found nickname")
         res.status(200).send(userandnotes)
-    res.status(404).send({message:"User not found nickname"})
+    else 
+        res.status(404).send({message:"User not found nickname"})
 });
 module.exports=router
