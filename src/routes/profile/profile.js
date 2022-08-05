@@ -6,17 +6,8 @@ const tokenservice=require('../../services/tokens')
 const noteservice=require('../../services/notes')
 const cryptojs=require('crypto-js')
 const { response } = require('express')
+var authmiddleware=require('../../pre_handlers/auth')
 
-router.route('/')
-.get(async (req,res)=>
-{
-    tokenn= await tokenservice.gettokenwithvalue(req.headers.access_token)
-    user=await userservice.getuserwithid(tokenn.userid)
-    if(user.message!="User not found id")
-        res.status(200).send(user)
-    else
-        res.status(404).send({message:"User not found id"})
-});
 
 router.route('/register')
 .post(async (req,res)=>
@@ -87,4 +78,18 @@ router.route('/:slug/notes')
     else 
         res.status(404).send({message:"User not found nickname"})
 });
+
+router.use(authmiddleware.authenticationmid)
+
+router.route('/')
+.get(async (req,res)=>
+{
+    tokenn= await tokenservice.gettokenwithvalue(req.headers.access_token)
+    user=await userservice.getuserwithid(tokenn.userid)
+    if(user.message!="User not found id")
+        res.status(200).send(user)
+    else
+        res.status(404).send({message:"User not found id"})
+});
+
 module.exports=router
