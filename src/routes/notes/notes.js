@@ -35,4 +35,12 @@ router.route('/:slug')
     notes= await noteservice.updatenote(userid,req.params.slug, notetext, isanonymus);
     res.status(200).send(notes)
 })
+router.route('/:slug/like').post(async (req,res)=>{
+    notes= await noteservice.likenote(req.body.userid,req.params.slug,);
+    res.status(200).send("LİKED!")
+})
+router.route('/:slug/dislike').post(async (req,res)=>{
+    notes= await noteservice.dislikenote(req.body.userid,req.params.slug,);
+    res.status(200).send("DİSLİKED!")
+})
 module.exports=router

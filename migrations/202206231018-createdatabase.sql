@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS notes(
 	title VARCHAR ( 250 ) NOT NULL,
 	notetext VARCHAR ( 1000 ) NOT NULL,
     is_anonymus BOOLEAN NOT NULL,
-    likecount int  DEFAULT 0,
-    dislikecount int DEFAULT 0,
+    likecount integer[],
+    dislikecount integer[],
 	created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
     deleted_at TIMESTAMP

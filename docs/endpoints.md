@@ -141,7 +141,33 @@
         .
 
     }
+    
 ```
+### POST /api/notes/:id/like
+- REQUEST
+```javascript
+    {
+    }
+``` 
+- RESPONSE
+```javascript
+    {
+        "LİKED!"
+    }
+```
+### POST /api/notes/:id/dislike
+- REQUEST
+```javascript
+    {
+    }
+``` 
+- RESPONSE
+```javascript
+    {
+        "DİSLİKED!"
+    }
+```
+
 ### POST /api/notes/:slug
 - REQUEST
 ```javascript

@@ -73,7 +73,7 @@ token.then(function(result) {
     describe('DELETE /notes/:slug', ()=>{
         it('200-Successful Delete note', (done)=> {
             request(app)
-            .put('/notes/istanbul')
+            .delete('/notes/1')
             .set('access_token',result[0].token)
             .send(
                 {

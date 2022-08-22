@@ -61,6 +61,28 @@ async function getnotebyuserid(userid)
     });
     return note.rows
 }
+async function likenote(userid,id)
+{
+    var note=await db.query("UPDATE notes SET likecount=array_append(likecount,$1) WHERE id=$2"
+    ,[userid,id]
+    ,(err,res)=>{
+        if(err){
+            console.log(err);
+        }
+    });
+    return note.rows
+}
+async function dislikenote(userid,id)
+{
+    var note=await db.query("UPDATE notes SET dislikecount=array_append(likecount,$1) WHERE id=$2"
+    ,[userid,id]
+    ,(err,res)=>{
+        if(err){
+            console.log(err);
+        }
+    });
+    return note.rows
+}
 
 async function getnotebynickname(nickname)
 {
@@ -90,5 +112,6 @@ module.exports={
     deletenote,
     getnotebytitle,
     getnotebyuserid,
-    getnotebynickname
+    getnotebynickname,
+    likenote
 }
