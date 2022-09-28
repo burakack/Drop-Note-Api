@@ -31,6 +31,6 @@ npm start
 ## Test
 -if you want to test api or include test data in database run this
 ```
-npm start
+npm run test
 
 ```
