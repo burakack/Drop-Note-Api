@@ -7,10 +7,21 @@ const noteservice=require('../../services/notes')
 const cryptojs=require('crypto-js')
 const { response } = require('express')
 var authmiddleware=require('../../pre_handlers/auth')
+const Joi = require('joi')
 
+GetUserScheme={
+    params:Joi.object({
+        slug:Joi.number
+    })
+}
+RegisterValidation={
+    body:Joi.object({
+        nickname:Joi.string,
+        
+    })
+}
 
-router.route('/register')
-.post(async (req,res)=>
+router.post('/register',async (req,res)=>
 {
     var {nickname,email,password,cpassword}=req.body
     useremail= await userservice.getuserwithemail(email)
@@ -38,8 +49,7 @@ router.route('/register')
         res.status(201).send(user)
     }
 })
-router.route('/login')
-.post(async (req,res)=>
+router.post('/login',async (req,res)=>
 {
     var {email,password}=req.body
     user= await userservice.getuserwithemail(email)
@@ -58,9 +68,16 @@ router.route('/login')
         res.status(401).send({message:"There is no registered user with this email "})
 })
 
-router.route('/:slug')
-.get(async (req,res)=>
+router.get('/:slug',async (req,res)=>
 {
+    const { error } = GetUserScheme.params.validate(req.params);
+    errors={message:""}
+    error.details.map(e=>errors.message+=e.message)
+    if (error) {
+      return res.status(400).send({
+        errors: error.details.map(),
+      });
+    }
     user=await userservice.getuserwithid(req.params.slug)
     if(user.message!="User not found id")
         res.status(200).send(user)
@@ -69,8 +86,7 @@ router.route('/:slug')
 });
 
 
-router.route('/:slug/notes')
-.get(async (req,res)=>
+router.get('/:slug/notes',async (req,res)=>
 {
     userandnotes=await noteservice.getnotebynickname(req.params.slug)
     if(userandnotes.message!="User not found nickname")
@@ -81,8 +97,7 @@ router.route('/:slug/notes')
 
 router.use(authmiddleware.authenticationmid)
 
-router.route('/')
-.get(async (req,res)=>
+router.get('',async (req,res)=>
 {
     tokenn= await tokenservice.gettokenwithvalue(req.headers.access_token)
     user=await userservice.getuserwithid(tokenn.userid)

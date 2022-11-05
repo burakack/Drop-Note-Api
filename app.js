@@ -23,9 +23,11 @@ app.use('/messages',messagerouter)
 const friendrouter=require('./src/routes/friends/friends')
 app.use('/friends',friendrouter)
 
-
-
-
+app.use('/*',function(req, res, next) {
+    res.status(404);
+    res.json({status:404,title:"Not Found",msg:"Route not found"});
+    next();
+   });
 
 app.listen(port,()=>{
     console.log(`🚀 Server listening to ${`http://localhost:${port}`} `);
