@@ -2,15 +2,19 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../database");
 var noteservice = require("../../services/notes");
+var userservice = require("../../services/users");
+var tokenservice = require("../../services/tokens");
 var authmiddleware = require("../../pre_handlers/auth");
 router.use(authmiddleware.authenticationmid);
 const Joi = require("joi");
 
 PostNoteValidation = Joi.object({
+  userid: Joi.number().required(),
   notetext: Joi.string().min(1).max(255).required(),
   isanonymus: Joi.boolean().required(),
 });
 PutNoteValidation = Joi.object({
+  userid: Joi.number().required(),
   notetext: Joi.string().min(1).max(255).required(),
   isanonymus: Joi.boolean().required(),
 });
@@ -23,14 +27,12 @@ router
     res.status(200).send(notes);
   })
   .post(async (req, res) => {
-    PostNoteValidation.validateAsync(req.body);
+    const { error } = PostNoteValidation.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
     var slug = req.params.slug;
     var { userid, notetext, isanonymus } = req.body;
-    if (notetext == null || isanonymus == null) res.status(400).send(notes);
-    else {
-      notes = await noteservice.createnote(userid, slug, notetext, isanonymus);
-      res.status(200).send(notes);
-    }
+    note = await noteservice.createnote(userid, slug, notetext, isanonymus);
+    res.status(200).send(note);
   })
   .delete(async (req, res) => {
     var slug = req.params.slug;
@@ -39,7 +41,8 @@ router
     res.status(200).send(notes);
   })
   .put(async (req, res) => {
-    PutNoteValidation.validateAsync(req.body);
+    const { error } = PutNoteValidation.validateAsync(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
     var { userid, notetext, isanonymus } = req.body;
     notes = await noteservice.updatenote(
       userid,

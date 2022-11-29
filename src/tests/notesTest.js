@@ -28,7 +28,7 @@ token.then(function (result) {
         })
         .expect(200, done);
     });
-    it("200-Posting notes with no text", (done) => {
+    it("400-Posting notes with no text", (done) => {
       request(app)
         .post("/notes/istanbul")
         .set("access_token", result[0].token)
@@ -37,7 +37,7 @@ token.then(function (result) {
         })
         .expect(400, done);
     });
-    it("200-Posting notes with no anonymus property", (done) => {
+    it("400-Posting notes with no anonymus property", (done) => {
       request(app)
         .post("/notes/istanbul")
         .set("access_token", result[0].token)
