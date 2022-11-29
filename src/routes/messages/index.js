@@ -51,4 +51,4 @@ router.route('')
     messages= await messageservice.updatemessages(req.body.userid,id,message)
     res.send(200,messages)
 })
-module.exports=router
+module.exports={name:"messages",router}

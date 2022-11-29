@@ -1,6 +1,5 @@
 const express =require('express')
 const router = express.Router()
-const db=require('../../database')
 const userservice=require('../../services/users')
 const tokenservice=require('../../services/tokens')
 const noteservice=require('../../services/notes')
@@ -9,17 +8,7 @@ const { response } = require('express')
 var authmiddleware=require('../../pre_handlers/auth')
 const Joi = require('joi')
 
-GetUserScheme={
-    params:Joi.object({
-        slug:Joi.number
-    })
-}
-RegisterValidation={
-    body:Joi.object({
-        nickname:Joi.string,
-        
-    })
-}
+
 
 router.post('/register',async (req,res)=>
 {
@@ -70,14 +59,7 @@ router.post('/login',async (req,res)=>
 
 router.get('/:slug',async (req,res)=>
 {
-    const { error } = GetUserScheme.params.validate(req.params);
-    errors={message:""}
-    error.details.map(e=>errors.message+=e.message)
-    if (error) {
-      return res.status(400).send({
-        errors: error.details.map(),
-      });
-    }
+
     user=await userservice.getuserwithid(req.params.slug)
     if(user.message!="User not found id")
         res.status(200).send(user)
@@ -106,5 +88,4 @@ router.get('',async (req,res)=>
     else
         res.status(404).send({message:"User not found id"})
 });
-
-module.exports=router
+module.exports={name:"profile",router}

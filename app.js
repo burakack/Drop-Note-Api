@@ -10,18 +10,10 @@ app.use(express.urlencoded({extended:true})) // for taking body paramaters
 app.use(express.json()) //parsing json like query
 
 
-
-const profileRouter=require('./src/routes/profile/profile')
-app.use('/profile',profileRouter)
-
-const noterouter=require('./src/routes/notes/notes')
-app.use('/notes',noterouter)
-
-const messagerouter=require('./src/routes/messages/messages')
-app.use('/messages',messagerouter)
-
-const friendrouter=require('./src/routes/friends/friends')
-app.use('/friends',friendrouter)
+const routes= require('./src/routes')
+routes.map(route=>{
+    app.use(`/${route.name}`,route.route)
+})
 
 app.use('/*',function(req, res, next) {
     res.status(404);

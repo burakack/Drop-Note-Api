@@ -43,4 +43,4 @@ router.route('/:slug/dislike').post(async (req,res)=>{
     notes= await noteservice.dislikenote(req.body.userid,req.params.slug,);
     res.status(200).send("DİSLİKED!")
 })
-module.exports=router
+module.exports={name:"notes",router}

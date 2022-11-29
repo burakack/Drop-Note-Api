@@ -23,4 +23,4 @@ router.route('')
     res.send(200,friends)
 })
 
-module.exports=router
+module.exports={name:"/friends",router}
