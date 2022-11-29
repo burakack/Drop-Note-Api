@@ -3,7 +3,6 @@ const db = require("./src/database");
 require("dotenv").config();
 noteservice = require("./src/services/notes");
 authmiddleware = require("./src/pre_handlers/auth");
-const port = process.env.port;
 const app = express();
 
 app.use(express.urlencoded({ extended: true })); // for taking body paramaters
@@ -20,8 +19,8 @@ app.use("/*", function (req, res, next) {
   next();
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Server listening to ${`http://localhost:${port}`} `);
+app.listen(process.env.PORT, () => {
+  console.log(`🚀 Server listening to ${`http://localhost:${process.env.PORT}`} `);
 });
 
 module.exports = app;
