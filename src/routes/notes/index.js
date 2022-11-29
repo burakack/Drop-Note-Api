@@ -4,6 +4,17 @@ const db=require('../../database')
 var noteservice=require('../../services/notes')
 var authmiddleware=require('../../pre_handlers/auth')
 router.use(authmiddleware.authenticationmid)
+const Joi = require('joi')
+
+PostNoteValidation=Joi.object({
+    notetext:Joi.string().min(1).max(255).required(),
+    isanonymus:Joi.boolean().required(),
+})
+PutNoteValidation=Joi.object({
+    notetext:Joi.string().min(1).max(255).required(),
+    isanonymus:Joi.boolean().required(),
+})
+
 router.route('/:slug')
 .get(async (req,res)=>
 {
@@ -13,6 +24,7 @@ router.route('/:slug')
 })
 .post(async (req,res)=>
 {
+    PostNoteValidation.validateAsync(req.body)
     var slug=req.params.slug;
     var {userid,notetext, isanonymus}=req.body;
     if(notetext==null||isanonymus==null)
@@ -31,6 +43,7 @@ router.route('/:slug')
 })
 .put(async (req,res)=>
 {
+    PutNoteValidation.validateAsync(req.body)
     var {userid, notetext, isanonymus}=req.body;
     notes= await noteservice.updatenote(userid,req.params.slug, notetext, isanonymus);
     res.status(200).send(notes)

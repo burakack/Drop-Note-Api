@@ -9,10 +9,23 @@ var authmiddleware=require('../../pre_handlers/auth')
 const Joi = require('joi')
 
 
+RegisterValidation=Joi.object({
+    nickname:Joi.string().min(3).max(30).required(),
+    email:Joi.string().min(6).max(255).required().email(),
+    password:Joi.string().min(6).max(1024).required(),
+    cpassword:Joi.string().min(6).max(1024).required()
+})
+
+LoginValidation=Joi.object({
+    email:Joi.string().min(6).max(255).required().email(),
+    password:Joi.string().min(6).max(1024).required(),
+})
+
 
 router.post('/register',async (req,res)=>
 {
-    var {nickname,email,password,cpassword}=req.body
+    RegisterValidation.validateAsync(req.body)
+    const {nickname,email,password,cpassword}=req.body;
     useremail= await userservice.getuserwithemail(email)
     usernickname= await userservice.getuserwithnickname(nickname)
     response.error=""
@@ -20,6 +33,7 @@ router.post('/register',async (req,res)=>
     {
         response.error +="E-mail need to be unique "
     }
+
     if(usernickname.message !='User not found nickname')
     {
         response.error +="Nickname need to be unique "
@@ -40,6 +54,7 @@ router.post('/register',async (req,res)=>
 })
 router.post('/login',async (req,res)=>
 {
+    LoginValidation.validateAsync(req.body)
     var {email,password}=req.body
     user= await userservice.getuserwithemail(email)
     if (user.message!="User not found email" )
@@ -57,10 +72,10 @@ router.post('/login',async (req,res)=>
         res.status(401).send({message:"There is no registered user with this email "})
 })
 
-router.get('/:slug',async (req,res)=>
+router.get('/:id',async (req,res)=>
 {
 
-    user=await userservice.getuserwithid(req.params.slug)
+    user=await userservice.getuserwithid(req.params.id)
     if(user.message!="User not found id")
         res.status(200).send(user)
     else

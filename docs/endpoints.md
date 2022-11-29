@@ -295,7 +295,7 @@
     }
 ```
 
-### UPDATE /api/messages/
+### DELETE /api/messages/
 - REQUEST
 ```javascript
     {
@@ -316,7 +316,7 @@
         }
     }
 ```
-### DELETE /api/messages/
+### UPDATE /api/messages/
 - REQUEST
 ```javascript
     {
