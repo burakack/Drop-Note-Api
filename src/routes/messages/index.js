@@ -73,4 +73,4 @@ router
     );
     res.send(200, messages);
   });
-module.exports = { name: "messages", router };
+module.exports = { prefix: "messages", router };

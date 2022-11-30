@@ -86,4 +86,4 @@ router.get("", async (req, res) => {
   if (user.message != "User not found id") res.status(200).send(user);
   else res.status(404).send({ message: "User not found id" });
 });
-module.exports = { name: "profile", router };
+module.exports = { prefix: "profile", router };

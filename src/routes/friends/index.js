@@ -23,4 +23,4 @@ router
     res.send(200, friends);
   });
 
-module.exports = { name: "/friends", router };
+module.exports = { prefix: "friends", router };

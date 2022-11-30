@@ -60,4 +60,4 @@ router.route("/:slug/dislike").post(async (req, res) => {
   notes = await noteservice.dislikenote(req.body.userid, req.params.slug);
   res.status(200).send("DİSLİKED!");
 });
-module.exports = { name: "notes", router };
+module.exports = { prefix: "notes", router };

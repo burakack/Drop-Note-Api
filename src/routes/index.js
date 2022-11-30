@@ -6,7 +6,7 @@ let routes = fs
   .map((route) => {
     const controller = require(`./${route}`);
     return {
-      name: controller.name,
+      prefix: controller.prefix,
       route: controller.router,
     };
   });

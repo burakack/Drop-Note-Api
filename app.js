@@ -10,7 +10,7 @@ app.use(express.json()); //parsing json like query
 
 const routes = require("./src/routes");
 routes.map((route) => {
-  app.use(`/${route.name}`, route.route);
+  app.use(`/${route.prefix}`, route.route);
 });
 
 app.use("/*", function (req, res, next) {
@@ -20,7 +20,9 @@ app.use("/*", function (req, res, next) {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`🚀 Server listening to ${`http://localhost:${process.env.PORT}`} `);
+  console.log(
+    `🚀 Server listening to ${`http://localhost:${process.env.PORT}`} `
+  );
 });
 
 module.exports = app;
