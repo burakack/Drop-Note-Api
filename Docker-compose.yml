@@ -13,7 +13,7 @@ services:
     image: "postgres:latest"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: drop_note_database
     expose:
       - "5432"
