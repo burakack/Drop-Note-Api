@@ -6,8 +6,8 @@ app = require("../../app");
 var user = {
   nickname: `TESTUSER${Date.now()}`,
   email: `abdaajı${Date.now()}@hotmail.com`,
-  password: "123",
-  cpassword: "123",
+  password: "123456",
+  cpassword: "123456",
 };
 
 describe("POST /profile/register", () => {
@@ -29,7 +29,7 @@ describe("POST /profile/register", () => {
       .send({
         nickname: `test ${Date.now()} user`,
         email: `testuser${Date.now()}@hotmail.com`,
-        password: "123",
+        password: "123456",
         cpassword: "1234",
       })
       .expect(400, done);
@@ -42,8 +42,8 @@ describe("POST /profile/register", () => {
       .send({
         nickname: `test ${Date.now()} user`,
         email: user.email,
-        password: "123",
-        cpassword: "123",
+        password: user.password,
+        cpassword: user.cpassword,
       })
       .expect(400, done);
   });
@@ -55,8 +55,8 @@ describe("POST /profile/register", () => {
       .send({
         nickname: user.nickname,
         email: `testuser${Date.now()}@hotmail.com`,
-        password: "123",
-        cpassword: "123",
+        password: user.password,
+        cpassword: user.cpassword,
       })
       .expect(400, done);
   });
@@ -91,7 +91,7 @@ describe("POST /profile/login", () => {
       .post("/profile/login")
       .send({
         email: `abdaajı${Date.now()}@hotmail.com`,
-        password: "123",
+        password: user.password,
       })
       .expect(401, done);
   });

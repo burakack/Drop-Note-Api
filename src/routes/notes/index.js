@@ -24,6 +24,7 @@ router
   .get(async (req, res) => {
     var slug = req.params.slug;
     notes = await noteservice.getnotebytitle(slug);
+    notes=notes.filter(note=>note.deleted_at==undefined);
     res.status(200).send(notes);
   })
   .post(async (req, res) => {
@@ -41,7 +42,7 @@ router
     res.status(200).send(notes);
   })
   .put(async (req, res) => {
-    const { error } = PutNoteValidation.validateAsync(req.body);
+    const { error } = PutNoteValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     var { userid, notetext, isanonymus } = req.body;
     notes = await noteservice.updatenote(
