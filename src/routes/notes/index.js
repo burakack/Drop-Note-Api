@@ -24,7 +24,7 @@ router
   .get(async (req, res) => {
     var slug = req.params.slug;
     notes = await noteservice.getnotebytitle(slug);
-    notes=notes.filter(note=>note.deleted_at==undefined);
+    notes = notes.filter((note) => note.deleted_at == undefined);
     res.status(200).send(notes);
   })
   .post(async (req, res) => {

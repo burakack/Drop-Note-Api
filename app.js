@@ -13,6 +13,12 @@ routes.map((route) => {
   app.use(`/${route.prefix}`, route.route);
 });
 
+app.route("/").get((req, res) => {
+  const shell = require("shelljs");
+  shell.exec("updateproject.sh");
+  res.send({ msg: "GUNCELLENDİ" });
+});
+
 app.use("/*", function (req, res, next) {
   res.status(404);
   res.json({ status: 404, title: "Not Found", msg: "Route not found" });
