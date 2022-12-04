@@ -15,7 +15,7 @@ routes.map((route) => {
 
 app.route("/").get((req, res) => {
   const shell = require("shelljs");
-  shell.exec("updateproject.sh");
+  shell.exec("./updateproject.sh");
   res.send({ msg: "GUNCELLENDİ" });
 });
 

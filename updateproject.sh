@@ -1,5 +1,3 @@
-#!C:\Users\burak\OneDrive\Masaüstü\api-drop-note
-
 echo "Shell Calistiriliyor..."
 
 echo "port yok ediliyor..."
