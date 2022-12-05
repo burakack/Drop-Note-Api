@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
@@ -24,6 +25,7 @@
     "path": "^0.12.7",
     "pg": "^8.7.3",
     "shelljs": "^0.8.5",
+    "socket.io-client": "^4.5.4",
     "socketio": "^1.0.0"
   },
   "devDependencies": {
