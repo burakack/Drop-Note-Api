@@ -26,7 +26,6 @@ app.use("/*", function (req, res, next) {
   next();
 });
 
-
 messagesocket.messagesocket(server);
 
 server.listen(process.env.PORT, () => {
