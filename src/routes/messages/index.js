@@ -97,14 +97,16 @@ router.route("/me").get(async (req, res) => {
       });
     }
   });
-  let channelss=channels.filter((element) => {
-    if (Object.keys(element).length !== 0) return true;
-  }).map((element) => {
-    return {
-      users:[element.fromuser, element.touser],
-      messages: element.messages,
-    };
-  });
+  let channelss = channels
+    .filter((element) => {
+      if (Object.keys(element).length !== 0) return true;
+    })
+    .map((element) => {
+      return {
+        users: [element.fromuser, element.touser],
+        messages: element.messages,
+      };
+    });
   res.send(200, channelss);
 });
 module.exports = { prefix: "messages", router };
