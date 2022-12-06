@@ -13,6 +13,20 @@ async function createmessages(userid, to, message) {
   );
   return note.rows[0];
 }
+
+async function getusermessages(userid) {
+  var note = await db.query(
+    "SELECT * FROM messages WHERE fromuser=$1 OR touser=$1",
+    [userid],
+    (err, res) => {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
+  return note.rows;
+}
+
 async function getmessages(userid, to) {
   var note = await db.query(
     "SELECT * FROM messages WHERE fromuser=$1 AND touser=$2 OR touser=$1 AND fromuser=$2",
@@ -55,6 +69,7 @@ async function deletemessages(userid, id) {
 }
 
 module.exports = {
+  getusermessages,
   createmessages,
   getmessages,
   deletemessages,
