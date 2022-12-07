@@ -6,8 +6,6 @@ kill $(lsof -t -i:3000)
 
 git pull https://github.com/burakack/Drop-Note-Api.git master
 
-docker image rm drop-note-api -f
+docker compose build
 
-docker compose up
-
-echo "Basarili"
+docker compose up && echo "Basarili"
