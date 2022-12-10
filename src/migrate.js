@@ -23,23 +23,4 @@ fs.readdirSync("./migrations").map((file) => {
         }
       });
 });
-
-// for (i = 0; i < migratefiles.length; i++) {
-//   var sql = fs
-//     .readFileSync(
-//       migratefiles[i],
-//       { encoding: "utf8", flag: "r" },
-//       function (err, data) {
-//         if (err) console.log(err);
-//       }
-//     )
-//     .toString();
-
-// db.query(sql, (err, res) => {
-//   if (err) {
-//     console.log("error: ", err);
-//     process.exit(1);
-//   }
-// });
-// }
 console.log("Database migrated succesfully!");
