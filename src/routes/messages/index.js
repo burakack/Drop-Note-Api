@@ -75,36 +75,36 @@ router.route("/me").get(async (req, res) => {
   let { userid } = req.body;
   let messages = await messageservice.getusermessages(userid);
   const channels = [{}];
-  messages.forEach((element) => {
+  messages.forEach((message) => {
     kontrol = 1;
-    channels.forEach((element2) => {
+    channels.forEach((channel) => {
       //if exist channel
       if (
-        (element.fromuser == element2.fromuser &&
-          element.touser == element2.touser) ||
-        (element.fromuser == element2.touser &&
-          element.touser == element2.fromuser)
+        (message.fromuser == channel.fromuser &&
+          message.touser == channel.touser) ||
+        (message.fromuser == channel.touser &&
+          message.touser == channel.fromuser)
       ) {
-        element2.messages.push(element);
+        channel.messages.push(message);
         kontrol = 0;
       }
     });
     if (kontrol) {
       channels.push({
-        fromuser: element.fromuser,
-        touser: element.touser,
-        messages: [element],
+        fromuser: message.fromuser,
+        touser: message.touser,
+        messages: [message],
       });
     }
   });
   let channelss = channels
-    .filter((element) => {
-      if (Object.keys(element).length !== 0) return true;
+    .filter((channel) => {
+      if (Object.keys(channel).length !== 0) return true;
     })
-    .map((element) => {
+    .map((channel) => {
       return {
-        users: [element.fromuser, element.touser],
-        messages: element.messages,
+        users: [channel.fromuser, channel.touser],
+        messages: channel.messages,
       };
     });
   res.send(200, channelss);
