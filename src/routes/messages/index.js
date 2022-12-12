@@ -71,6 +71,7 @@ router
     );
     res.send(200, messages);
   });
+  
 router.route("/me").get(async (req, res) => {
   let { userid } = req.body;
   let messages = await messageservice.getusermessages(userid);
@@ -107,6 +108,6 @@ router.route("/me").get(async (req, res) => {
         messages: channel.messages,
       };
     });
-  res.send(200, channelss);
+  res.status(200).send( channelss);
 });
 module.exports = { prefix: "messages", router };

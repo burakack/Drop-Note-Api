@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.1",
@@ -24,6 +25,7 @@
     "joi": "^17.7.0",
     "path": "^0.12.7",
     "pg": "^8.7.3",
+    "redis": "^4.0.6",
     "shelljs": "^0.8.5",
     "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.4"

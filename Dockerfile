@@ -6,6 +6,8 @@ ENV NODE_ENV=production
 
 ENV host=database
 
+ENV REDIS_HOST=cache
+
 COPY . ./app
 
 WORKDIR /app

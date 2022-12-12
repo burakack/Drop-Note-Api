@@ -1,6 +1,7 @@
 version: '3'
 services:
   api:
+    restart: always
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -8,6 +9,7 @@ services:
       - "3000:3000"
     depends_on:
       - database
+      - cache
 
   database:
     image: "postgres:latest"
@@ -21,5 +23,15 @@ services:
       - "5432:5432"
     volumes:
       - database-data:/var/lib/postgresql/data/
+
+  cache:
+    image: redis:6.2-alpine
+    expose:
+      - "6379"
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes:
+      - /path/to/redis-persistence:/bitnami/redis/data
 volumes:
   database-data:
