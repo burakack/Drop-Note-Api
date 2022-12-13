@@ -13,7 +13,7 @@ const authentication = async (req, res, next) => {
     if (tokenn == undefined)
       res.send(401, { message: "You must be logged in for this action " });
     else {
-      await redisService.set(req.headers.access_token, tokenn.userid);
+      await redisService.setEx(req.headers.access_token,3600,tokenn.userid);
       req.body.userid = tokenn.userid;
       next();
     }
