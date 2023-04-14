@@ -1,9 +1,6 @@
-var assert = require("assert");
-var expect = require("chai").expect;
 var request = require("supertest");
 app = require("../../app");
 const tokenservice = require("../services/tokens");
-const user = require("./profileTest").user;
 
 var token = tokenservice.gettokenwithid(1);
 token.then(function (result) {

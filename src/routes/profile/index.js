@@ -21,8 +21,7 @@ LoginValidation = Joi.object({
 });
 
 router.post("/register", async (req, res) => {
-  const { error } =  RegisterValidation.validate(req.body);
-  console.log(error)
+  const { error } = RegisterValidation.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const { nickname, email, password, cpassword } = req.body;
   useremail = await userservice.getuserwithemail(email);
@@ -47,7 +46,6 @@ router.post("/register", async (req, res) => {
 });
 router.post("/login", async (req, res) => {
   const { error } = LoginValidation.validate(req.body);
-  console.log(error)
   if (error) return res.status(400).send(error.details[0].message);
   var { email, password } = req.body;
   user = await userservice.getuserwithemail(email);

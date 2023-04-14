@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../database");
 const RedisService = require("../../redis");
 const messageservice = require("../../services/messages");
 var authmiddleware = require("../../pre_handlers/auth");
@@ -46,22 +45,22 @@ router
     const { error } = PostMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     var { to, message } = req.body;
-    if(to!=req.body.userid)
-    {
+    if (to != req.body.userid) {
       messages = await messageservice.createmessages(
         req.body.userid,
         to,
         message
       );
-      const redisClient=await new RedisService().getClient();
+      const redisClient = await new RedisService().getClient();
       await redisClient.lPush(`messages:${to}`, JSON.stringify(messages));
-      await redisClient.lPush(`messages:${req.body.userid}`, JSON.stringify(messages));
+      await redisClient.lPush(
+        `messages:${req.body.userid}`,
+        JSON.stringify(messages)
+      );
       res.status(200).send(messages);
+    } else {
+      res.status(400).send({ error: "You cant send messages to yourself" });
     }
-    else{
-      res.status(400).send({error:"You cant send messages to yourself"});
-    }
-
   })
   .delete(async (req, res) => {
     const { error } = DeleteMessageValidation.validate(req.body);
@@ -82,11 +81,11 @@ router
     );
     res.send(200, messages);
   });
-  
+
 router.route("/me").get(async (req, res) => {
   let { userid } = req.body;
-  const redisService =await new RedisService().getClient();
-  let messages = await redisService.lRange(`messages:${userid}`,0,-1);
+  const redisService = await new RedisService().getClient();
+  let messages = await redisService.lRange(`messages:${userid}`, 0, -1);
   const channels = [{}];
   messages.forEach((message) => {
     message = JSON.parse(message);
@@ -121,6 +120,6 @@ router.route("/me").get(async (req, res) => {
         messages: channel.messages,
       };
     });
-  res.status(200).send( channelss);
+  res.status(200).send(channelss);
 });
 module.exports = { prefix: "messages", router };

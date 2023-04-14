@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../database");
 var noteservice = require("../../services/notes");
-var userservice = require("../../services/users");
-var tokenservice = require("../../services/tokens");
 var authmiddleware = require("../../pre_handlers/auth");
 router.use(authmiddleware.authenticationmid);
 const Joi = require("joi");

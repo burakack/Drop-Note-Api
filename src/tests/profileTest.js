@@ -1,4 +1,3 @@
-var assert = require("assert");
 var expect = require("chai").expect;
 var request = require("supertest");
 app = require("../../app");

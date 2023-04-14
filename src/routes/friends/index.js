@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../database");
 const friendservice = require("../../services/friends");
 const authmiddleware = require("../../pre_handlers/auth");
 
