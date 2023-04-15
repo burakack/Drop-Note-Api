@@ -40,7 +40,7 @@ jobs:
       - run: npm install
       - name : Run Migrations
         env:
-        PORT: 3000
+          PORT: 3000
           dbport: 5432
           user: postgres
           password: "postgres"
@@ -52,6 +52,7 @@ jobs:
         run: npm run migrate
       - name: Run Tests
         env:
+          PORT: 3000
           dbport: 5432
           user: postgres
           password: "postgres"
