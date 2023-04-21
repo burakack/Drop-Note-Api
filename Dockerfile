@@ -16,4 +16,4 @@ RUN npm install
 
 EXPOSE 3000
 
-ENTRYPOINT ["/bin/sh", "-c" , "npm run migrate && npm start"]
+ENTRYPOINT ["/bin/sh", "-c" , "npm run migrate && npm run seed && npm start"]
