@@ -4,6 +4,16 @@ FROM node:12.18.1
 
 ENV NODE_ENV=production
 
+ENV PORT=3000
+
+ENV DB_USER=postgres
+
+ENV database=drop_note_database
+
+ENV DB_PASSWORD=postgres
+
+ENV password=postgres
+
 ENV host=database
 
 ENV REDIS_HOST=cache
