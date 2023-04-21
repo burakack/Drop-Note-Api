@@ -46,7 +46,7 @@ users.forEach((user) => {
   ]);
 });
 
-tokens.forEach((token) => {
-  const { userid, token, created_At } = token;
+tokens.forEach((tokenn) => {
+  const { userid, token, created_At } = tokenn;
   db.query(instertTokenQuery, [token, userid, created_At]);
 });
