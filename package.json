@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./src/tests",
+    "test": "node ./src/seed.js && mocha ./src/tests --exit",
     "start": "nodemon app.js",
     "seed":" node ./src/seed.js",
     "migrate": "node ./src/migrate.js"

@@ -2,6 +2,8 @@ const db = require("./database.js");
 
 const insertUserQuery = `INSERT INTO users (nickname, email, password_salt, password_hash, created_At)
                           VALUES ($1, $2, $3, $4, $5)`;
+const instertTokenQuery = `INSERT INTO tokens (userid, token, expired_At)
+                          VALUES ($1, $2, $3)`;
 
 const users = [
   {
@@ -20,6 +22,19 @@ const users = [
   },
 ];
 
+const tokens = [
+  {
+    userid: 1,
+    token: "testtoken",
+    expired_At: "2021-01-01 00:00:00",
+  },
+  {
+    userid: 2,
+    token: "testtoken2",
+    expired_At: "2021-01-01 00:00:00",
+  },
+];
+
 users.forEach((user) => {
   const { nickname, email, password_salt, password_hash, created_At } = user;
   db.query(insertUserQuery, [
@@ -29,4 +44,9 @@ users.forEach((user) => {
     password_hash,
     created_At,
   ]);
+});
+
+tokens.forEach((tokenn) => {
+  const { userid, token, expired_At } = tokenn;
+  db.query(instertTokenQuery, [userid, token, expired_At]);
 });
