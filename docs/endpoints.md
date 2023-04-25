@@ -34,7 +34,7 @@
     {
         "nickname":,
         "email":,
-        "password_salt,":,
+        "password_salt":,
         "password_hash",
         "created_at":
     }
@@ -44,9 +44,13 @@
 - REQUEST
 ```javascript
     {
-        "email":,
-        "password":,
+        "message":,
+        "token": {
+            "userid":,
+            "token":,
+            "expired_at"
     }
+}
 ``` 
 - RESPONSE
 ```javascript
