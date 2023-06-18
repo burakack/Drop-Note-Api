@@ -9,17 +9,25 @@ router
   .route("")
   .get(async (req, res) => {
     friends = await friendservice.getfriend(req.body.userid);
-    res.send(200, friends);
+    res.status(200).send(friends);
   })
   .post(async (req, res) => {
     var { requester_id } = req.body;
-    friends = await friendservice.createfriend(req.body.userid, requester_id);
-    res.send(200, friends);
+    if (!requester_id) {
+      res.status(400).send({ message: "requester_id is required" });
+    } else {
+      friends = await friendservice.createfriend(req.body.userid, requester_id);
+      res.status(200).send(friends);
+    }
   })
   .delete(async (req, res) => {
     var { requester_id } = req.body;
-    friends = await friendservice.deletefriend(req.body.userid, requester_id);
-    res.send(200, friends);
+    if (!requester_id)
+      res.status(400).send({ message: "requester_id is required" });
+    else {
+      friends = await friendservice.deletefriend(req.body.userid, requester_id);
+      res.status(200).send(friends);
+    }
   });
 
 module.exports = { prefix: "friends", router };
