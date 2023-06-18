@@ -27,8 +27,9 @@ async function getfriend(userid) {
   return friend.rows;
 }
 async function deletefriend(requestee_id, requester_id) {
+  var date = await db.query("SELECT NOW()");
   var friend = await db.query(
-    "UPDATE friends SET Declined_on=$3 WHERE requestee_id=$1 AND friends.requester_id=$2 RETURNING *;",
+    "UPDATE friends SET Declined_on=$3 WHERE friends.requestee_id=$1 AND friends.requester_id=$2 RETURNING *;",
     [requestee_id, requester_id, date.rows[0].now],
     (err, res) => {
       if (err) {
