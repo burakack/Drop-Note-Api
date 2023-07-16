@@ -8,7 +8,7 @@ const Joi = require("joi");
 
 GetMessageValidation = Joi.object({
   userid: Joi.number().required(),
-  to: Joi.number().required(),
+  anotheruserid: Joi.number().required(),
 });
 
 PostMessageValidation = Joi.object({
@@ -33,11 +33,11 @@ router
   .get(async (req, res) => {
     const { error } = GetMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    var { to, userid } = req.body;
-    if (to == userid)
+    var { anotheruserid, userid } = req.body;
+    if (anotheruserid == userid)
       res.status(400).send("You can't take messages from yourself");
     else {
-      messages = await messageservice.getmessages(userid, to);
+      messages = await messageservice.getmessages(userid, anotheruserid);
       res.status(200).send(messages);
     }
   })

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node ./src/seed.js && mocha ./src/tests --exit",
     "start": "nodemon app.js",
-    "seed":" node ./src/seed.js",
+    "seed": " node ./src/seed.js",
     "migrate": "node ./src/migrate.js"
   },
   "keywords": [],
@@ -21,8 +21,6 @@
     "express": "^4.18.1",
     "express-joi-validation": "^5.0.1",
     "express-validator": "^7.0.1",
-    "fs": "^0.0.1-security",
-    "i": "^0.3.7",
     "joi": "^17.7.0",
     "path": "^0.12.7",
     "pg": "^8.7.3",
