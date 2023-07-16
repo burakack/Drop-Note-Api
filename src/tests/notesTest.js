@@ -47,7 +47,7 @@ token.then(function (result) {
   describe("UPDATE /notes/:slug", () => {
     it("200-Successful updating notes", (done) => {
       request(app)
-        .put("/notes/istanbul")
+        .put("/notes/1")
         .set("access_token", result[0].token)
         .send({
           notetext: "sad note",

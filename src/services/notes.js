@@ -15,11 +15,11 @@ async function createnote(userid, title, notetext, isanonymus) {
   return note.rows[0];
 }
 
-async function updatenote(id, title, notetext, isanonymus) {
+async function updatenote(id, noteId, notetext, isanonymus) {
   var date = await db.query("SELECT NOW()");
   var note = await db.query(
-    "UPDATE notes SET notetext=$3,is_anonymus=$4,updated_at=$5 WHERE id=$1 AND title=$2 RETURNING * ;",
-    [id, title, notetext, isanonymus, date.rows[0].now],
+    "UPDATE notes SET notetext=$3,is_anonymus=$4,updated_at=$5 WHERE userid=$1 AND id=$2 RETURNING * ;",
+    [id, noteId, notetext, isanonymus, date.rows[0].now],
     (err, res) => {
       if (err) {
         console.log(err);

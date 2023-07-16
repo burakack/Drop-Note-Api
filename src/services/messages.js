@@ -27,10 +27,10 @@ async function getusermessages(userid) {
   return messag.rows;
 }
 
-async function getmessages(userid, to) {
+async function getmessages(userid, anotheruserid) {
   var messag = await db.query(
     "SELECT * FROM messages WHERE fromuser=$1 AND touser=$2 OR touser=$1 AND fromuser=$2",
-    [userid, to],
+    [userid, anotheruserid],
     (err, res) => {
       if (err) {
         console.log(err);

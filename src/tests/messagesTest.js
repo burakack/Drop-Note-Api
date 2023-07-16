@@ -10,7 +10,7 @@ token.then(function (result) {
         .get("/messages/")
         .set("access_token", result[0].token)
         .send({
-          to: 2,
+          anotheruserid: 2,
         })
         .expect(200, done);
     });
