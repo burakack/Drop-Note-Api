@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./src/tests",
+    "test": "node ./src/seed.js && mocha ./src/tests --exit",
     "start": "nodemon app.js",
+    "seed": " node ./src/seed.js",
     "migrate": "node ./src/migrate.js"
   },
   "keywords": [],
@@ -19,9 +20,7 @@
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-joi-validation": "^5.0.1",
-    "express-validator": "^6.14.2",
-    "fs": "^0.0.1-security",
-    "i": "^0.3.7",
+    "express-validator": "^7.0.1",
     "joi": "^17.7.0",
     "path": "^0.12.7",
     "pg": "^8.7.3",
@@ -33,7 +32,7 @@
   "devDependencies": {
     "chai": "^4.3.6",
     "mocha": "^10.0.0",
-    "nodemon": "^2.0.16",
+    "nodemon": "^3.0.1",
     "supertest": "^6.2.4"
   }
 }

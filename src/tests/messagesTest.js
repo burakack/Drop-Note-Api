@@ -1,9 +1,6 @@
-var assert = require("assert");
-var expect = require("chai").expect;
 var request = require("supertest");
 app = require("../../app");
 const tokenservice = require("../services/tokens");
-const user = require("./profileTest").user;
 
 var token = tokenservice.gettokenwithid(1);
 token.then(function (result) {
@@ -13,7 +10,7 @@ token.then(function (result) {
         .get("/messages/")
         .set("access_token", result[0].token)
         .send({
-          to: 2,
+          anotheruserid: 2,
         })
         .expect(200, done);
     });

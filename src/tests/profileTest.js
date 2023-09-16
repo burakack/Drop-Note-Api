@@ -1,4 +1,3 @@
-var assert = require("assert");
 var expect = require("chai").expect;
 var request = require("supertest");
 app = require("../../app");
@@ -17,6 +16,18 @@ describe("POST /profile/register", () => {
       .send({
         nickname: user.nickname,
         email: user.email,
+        password: user.password,
+        cpassword: user.cpassword,
+      })
+      .expect(201, done);
+  });
+
+  it("201-Successful second registration scenario", (done) => {
+    request(app)
+      .post("/profile/register")
+      .send({
+        nickname: user.nickname + "-2",
+        email: `abdaajı${Date.now()}@hotmail.com`,
         password: user.password,
         cpassword: user.cpassword,
       })

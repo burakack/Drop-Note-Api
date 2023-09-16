@@ -1,12 +1,10 @@
 const express = require("express");
-const db = require("./src/database");
 require("dotenv").config();
 const app = express();
 const messagesocket = require("./src/socket");
 app.use(express.urlencoded({ extended: true })); // for taking body paramaters
 app.use(express.json()); //parsing json like query
 const http = require("http");
-const { Server } = require("socket.io");
 const server = http.createServer(app);
 
 const routes = require("./src/routes");

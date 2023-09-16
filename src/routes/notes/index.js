@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../database");
 var noteservice = require("../../services/notes");
-var userservice = require("../../services/users");
-var tokenservice = require("../../services/tokens");
 var authmiddleware = require("../../pre_handlers/auth");
 router.use(authmiddleware.authenticationmid);
 const Joi = require("joi");
@@ -53,11 +50,11 @@ router
     );
     res.status(200).send(notes);
   });
-router.route("/:slug/like").post(async (req, res) => {
+router.route("/like/:slug").post(async (req, res) => {
   notes = await noteservice.likenote(req.body.userid, req.params.slug);
   res.status(200).send("LİKED!");
 });
-router.route("/:slug/dislike").post(async (req, res) => {
+router.route("/dislike/:slug").post(async (req, res) => {
   notes = await noteservice.dislikenote(req.body.userid, req.params.slug);
   res.status(200).send("DİSLİKED!");
 });

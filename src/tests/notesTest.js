@@ -1,9 +1,6 @@
-var assert = require("assert");
-var expect = require("chai").expect;
 var request = require("supertest");
 app = require("../../app");
 const tokenservice = require("../services/tokens");
-const user = require("./profileTest").user;
 
 var token = tokenservice.gettokenwithid(1);
 token.then(function (result) {
@@ -50,7 +47,7 @@ token.then(function (result) {
   describe("UPDATE /notes/:slug", () => {
     it("200-Successful updating notes", (done) => {
       request(app)
-        .put("/notes/istanbul")
+        .put("/notes/1")
         .set("access_token", result[0].token)
         .send({
           notetext: "sad note",
