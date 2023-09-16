@@ -12,7 +12,7 @@ services:
       - cache
 
   database:
-    image: "postgres:latest"
+    image: "postgres:14"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -22,8 +22,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - database-data:/var/lib/postgresql/data/
-
+      - database-data:/var/lib/postgresql/data
   cache:
     image: redis:6.2-alpine
     expose:

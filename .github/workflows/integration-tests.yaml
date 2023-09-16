@@ -1,0 +1,26 @@
+name: Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Start docker containers
+        run: docker compose up -d --build
+      - name: Install dependencies
+        run: npm install
+      - name: Install integration test dependencies
+        run: cd tests/integrations && npm install && npm run build && cp -R scenarios/tests build/scenarios/tests && ls -all
+      - run: npm ci
+      - name: Testing all scenarions
+        run: npm run test
