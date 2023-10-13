@@ -66,7 +66,7 @@ router
     const { error } = DeleteMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     let { id } = req.body;
-    messages = await messageservice.deletemessages(req.body.userid, id);
+    let messages = await messageservice.deletemessages(req.body.userid, id);
     if (messages == null) res.status(400).send("Message not found");
     res.send(200, messages);
   })
@@ -74,7 +74,7 @@ router
     const { error } = UpdateMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     let { id, message } = req.body;
-    messages = await messageservice.updatemessages(
+    let messages = await messageservice.updatemessages(
       req.body.userid,
       id,
       message

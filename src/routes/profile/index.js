@@ -24,8 +24,8 @@ router.post("/register", async (req, res) => {
   const { error } = RegisterValidation.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const { nickname, email, password, cpassword } = req.body;
-  useremail = await userservice.getuserwithemail(email);
-  usernickname = await userservice.getuserwithnickname(nickname);
+  let useremail = await userservice.getuserwithemail(email);
+  let usernickname = await userservice.getuserwithnickname(nickname);
   response.error = "";
   if (useremail.message != "User not found email") {
     response.error += "E-mail need to be unique ";
@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  user = await userservice.getuserwithid(req.params.id);
+  let user = await userservice.getuserwithid(req.params.id);
   if (user.message != "User not found id") res.status(200).send(user);
   else res.status(404).send({ message: "User not found id" });
 });
@@ -82,7 +82,7 @@ router.use(authmiddleware.authenticationmid);
 
 router.get("", async (req, res) => {
   let tokenn = await tokenservice.gettokenwithvalue(req.headers.access_token);
-  user = await userservice.getuserwithid(tokenn.userid);
+  let user = await userservice.getuserwithid(tokenn.userid);
   if (user.message != "User not found id") res.status(200).send(user);
   else res.status(404).send({ message: "User not found id" });
 });
