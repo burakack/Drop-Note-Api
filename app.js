@@ -28,7 +28,7 @@ messagesocket.messagesocket(server);
 
 server.listen(process.env.PORT, () => {
   console.log(
-    `🚀 Server listening to ${`http://localhost:${process.env.PORT}`} `
+    `🚀 Server listening to http://localhost:${process.env.PORT} `
   );
 });
 

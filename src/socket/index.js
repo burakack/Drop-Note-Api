@@ -11,7 +11,7 @@ function messagesocket(server) {
       if (tokenn == undefined) {
         socket.emit("error", { msg: "Not Authorized" });
       } else {
-        userid = tokenn.userid;
+        let userid = tokenn.userid;
         console.log(userid);
         await messageservice.createmessages(userid, to, text);
         io.in(`${to}-${userid}`).emit("message", { userid, to, text });

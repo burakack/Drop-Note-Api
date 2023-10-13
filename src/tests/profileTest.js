@@ -1,8 +1,8 @@
-var expect = require("chai").expect;
-var request = require("supertest");
+let expect = require("chai").expect;
+let request = require("supertest");
 app = require("../../app");
 
-var user = {
+let user = {
   nickname: `TESTUSER${Date.now()}`,
   email: `abdaajı${Date.now()}@hotmail.com`,
   password: "123456",
@@ -47,7 +47,6 @@ describe("POST /profile/register", () => {
   });
 
   it("400-E-mail need to be unique", (done) => {
-    var email = `testuser${Date.now()}@hotmail.com`;
     request(app)
       .post("/profile/register")
       .send({
@@ -60,7 +59,6 @@ describe("POST /profile/register", () => {
   });
 
   it("400-Nickname need to be unique", (done) => {
-    var nickname = `test ${Date.now()} user `;
     request(app)
       .post("/profile/register")
       .send({

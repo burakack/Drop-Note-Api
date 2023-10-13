@@ -1,8 +1,8 @@
-var request = require("supertest");
-app = require("../../app");
+let request = require("supertest");
+let app = require("../../app");
 const tokenservice = require("../services/tokens");
 
-var token = tokenservice.gettokenwithid(1);
+let token = tokenservice.gettokenwithid(1);
 token.then(function (result) {
   describe("GET /messages/", () => {
     it("200-Successful getting messages", (done) => {

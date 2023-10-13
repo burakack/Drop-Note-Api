@@ -2,7 +2,7 @@ const db = require("../database");
 const cryptojs = require("crypto-js");
 
 async function getuserwithnickname(nickname) {
-  user = await db.query(
+  let user = await db.query(
     "SELECT * from users WHERE nickname=$1",
     [nickname],
     (err, res) => {
@@ -44,11 +44,11 @@ async function getuserwithid(id) {
 }
 
 async function createuser(nickname, email, password) {
-  var date = await db.query("SELECT NOW()");
-  var password_salt =
-    Math.random().toString(36).substring(2, 20) +
+  let date = await db.query("SELECT NOW()");
+  let password_salt =
+    crypto.randomBytes(20).toString(36).substring(2, 20) +
     date.rows[0].now.toString().substring(20, 25);
-  var password_hash = cryptojs.AES.encrypt(password, password_salt).toString();
+  let password_hash = cryptojs.AES.encrypt(password, password_salt).toString();
   user = await db.query(
     "INSERT INTO users (nickname,email,password_salt,password_hash,created_at) VALUES ($1,$2,$3,$4,$5) RETURNING *",
     [nickname, email, password_salt, password_hash, date.rows[0].now],
@@ -59,8 +59,8 @@ async function createuser(nickname, email, password) {
   return user.rows[0];
 }
 async function deleteuser(id) {
-  var date = await db.query("SELECT NOW()");
-  var user = await db.query(
+  let date = await db.query("SELECT NOW()");
+  let user = await db.query(
     "UPDATE users SET deleted_at=$1 WHERE id=$2 RETURNING * ;",
     [date.rows[0].now, id],
     (err, res) => {
@@ -73,9 +73,9 @@ async function deleteuser(id) {
 }
 
 async function changepassworduser(password, id) {
-  var date = await db.query("SELECT NOW()");
-  var password_salt = Math.random().toString(36).substring(2, 20);
-  var password_hash = cryptojs.AES.encrypt(
+  let date = await db.query("SELECT NOW()");
+  let password_salt = crypto.randomBytes(20).toString(36).substring(2, 20);
+  let password_hash = cryptojs.AES.encrypt(
     password,
     date.rows[0].now.toString() + password_salt
   ).toString();
