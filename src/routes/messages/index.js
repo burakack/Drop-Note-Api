@@ -46,7 +46,7 @@ router
     if (error) return res.status(400).send(error.details[0].message);
     let { to, message } = req.body;
     if (to != req.body.userid) {
-      messages = await messageservice.createmessages(
+      let messages = await messageservice.createmessages(
         req.body.userid,
         to,
         message

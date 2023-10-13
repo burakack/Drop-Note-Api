@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
   const { error } = LoginValidation.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   let { email, password } = req.body;
-  user = await userservice.getuserwithemail(email);
+  let user = await userservice.getuserwithemail(email);
   if (user.message != "User not found email") {
     let token = await tokenservice.createtoken(user.id);
     let hash = user.password_hash;
