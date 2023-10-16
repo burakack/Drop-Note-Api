@@ -12,7 +12,7 @@ routes.map((route) => {
   app.use(`/${route.prefix}`, route.route);
 });
 
-app.route("/").get((req, res) => {
+app.route("/").post((req, res) => {
   const shell = require("shelljs");
   shell.exec("./updateproject.sh");
   res.send({ msg: "GUNCELLENDİ" });
