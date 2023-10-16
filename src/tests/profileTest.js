@@ -1,6 +1,6 @@
 let expect = require("chai").expect;
 let request = require("supertest");
-app = require("../../app");
+const app = require("../../app");
 
 let user = {
   nickname: `TESTUSER${Date.now()}`,

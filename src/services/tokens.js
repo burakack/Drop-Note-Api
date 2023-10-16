@@ -15,7 +15,7 @@ async function gettokenwithid(userid) {
 }
 
 async function gettokenwithvalue(tokenvalue) {
-  token = await db.query(
+  let token = await db.query(
     "SELECT * from tokens WHERE token=$1",
     [tokenvalue],
     (err, res) => {
@@ -30,10 +30,10 @@ async function gettokenwithvalue(tokenvalue) {
 async function createtoken(userid) {
   const expired_at = new Date();
   expired_at.setDate(new Date().getDate() + 30);
-  const random1 = crypto.randomBytes(20)
-  const random2 = crypto.randomBytes(20)
+  let random1 = (Math.random() + 1).toString(36).substring(7);
+  let random2 = (Math.random() + 1).toString(36).substring(7);
   let tokenvalue = cryptojs.AES.encrypt(random1, random2).toString();
-  token = await db.query(
+  let token = await db.query(
     "INSERT INTO tokens VALUES($1,$2,$3) RETURNING *",
     [userid, tokenvalue, expired_at],
     (err, res) => {
