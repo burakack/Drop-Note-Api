@@ -9,7 +9,7 @@ async function createmessages(userid, to, message) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return messag.rows[0];
 }
@@ -22,7 +22,7 @@ async function getusermessages(userid) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return messag.rows;
 }
@@ -35,7 +35,7 @@ async function getmessages(userid, anotheruserid) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return messag.rows;
 }
@@ -49,7 +49,7 @@ async function updatemessages(userid, id, message) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return messag.rows[0];
 }
@@ -63,7 +63,7 @@ async function deletemessages(userid, id) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return messag.rows[0];
 }

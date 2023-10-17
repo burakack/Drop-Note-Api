@@ -9,7 +9,7 @@ async function createfriend(requestee_id, requester_id) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return friend.rows[0];
 }
@@ -22,7 +22,7 @@ async function getfriend(userid) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return friend.rows;
 }
@@ -35,7 +35,7 @@ async function deletefriend(requestee_id, requester_id) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return friend.rows[0];
 }

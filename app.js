@@ -27,9 +27,7 @@ app.use("/*", function (req, res, next) {
 messagesocket.messagesocket(server);
 
 server.listen(process.env.PORT, () => {
-  console.log(
-    `🚀 Server listening to http://localhost:${process.env.PORT} `
-  );
+  console.log(`🚀 Server listening to http://localhost:${process.env.PORT} `);
 });
 
 module.exports = app;

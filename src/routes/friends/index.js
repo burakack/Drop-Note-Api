@@ -16,7 +16,10 @@ router
     if (!requester_id) {
       res.status(400).send({ message: "requester_id is required" });
     } else {
-      let friends = await friendservice.createfriend(req.body.userid, requester_id);
+      let friends = await friendservice.createfriend(
+        req.body.userid,
+        requester_id,
+      );
       res.status(200).send(friends);
     }
   })
@@ -25,7 +28,10 @@ router
     if (!requester_id)
       res.status(400).send({ message: "requester_id is required" });
     else {
-      let friends = await friendservice.deletefriend(req.body.userid, requester_id);
+      let friends = await friendservice.deletefriend(
+        req.body.userid,
+        requester_id,
+      );
       res.status(200).send(friends);
     }
   });

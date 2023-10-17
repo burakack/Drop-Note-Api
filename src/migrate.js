@@ -15,10 +15,10 @@ Promise.all(
             if (err) reject(err);
             resolve(res);
           });
-        }
+        },
       );
     });
-  })
+  }),
 )
   .then(() => {
     console.log("Database migrated successfully!");
