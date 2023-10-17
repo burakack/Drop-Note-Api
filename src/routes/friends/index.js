@@ -8,24 +8,24 @@ router.use(authmiddleware.authenticationmid);
 router
   .route("")
   .get(async (req, res) => {
-    friends = await friendservice.getfriend(req.body.userid);
+    let friends = await friendservice.getfriend(req.body.userid);
     res.status(200).send(friends);
   })
   .post(async (req, res) => {
-    var { requester_id } = req.body;
+    let { requester_id } = req.body;
     if (!requester_id) {
       res.status(400).send({ message: "requester_id is required" });
     } else {
-      friends = await friendservice.createfriend(req.body.userid, requester_id);
+      let friends = await friendservice.createfriend(req.body.userid, requester_id);
       res.status(200).send(friends);
     }
   })
   .delete(async (req, res) => {
-    var { requester_id } = req.body;
+    let { requester_id } = req.body;
     if (!requester_id)
       res.status(400).send({ message: "requester_id is required" });
     else {
-      friends = await friendservice.deletefriend(req.body.userid, requester_id);
+      let friends = await friendservice.deletefriend(req.body.userid, requester_id);
       res.status(200).send(friends);
     }
   });

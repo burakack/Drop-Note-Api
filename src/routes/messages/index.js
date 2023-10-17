@@ -2,28 +2,28 @@ const express = require("express");
 const router = express.Router();
 const RedisService = require("../../redis");
 const messageservice = require("../../services/messages");
-var authmiddleware = require("../../pre_handlers/auth");
+let authmiddleware = require("../../pre_handlers/auth");
 router.use(authmiddleware.authenticationmid);
 const Joi = require("joi");
 
-GetMessageValidation = Joi.object({
+let GetMessageValidation = Joi.object({
   userid: Joi.number().required(),
   anotheruserid: Joi.number().required(),
 });
 
-PostMessageValidation = Joi.object({
+let PostMessageValidation = Joi.object({
   userid: Joi.number().required(),
   to: Joi.number().required(),
   message: Joi.string().min(1).max(255).required(),
 });
 
-UpdateMessageValidation = Joi.object({
+let UpdateMessageValidation = Joi.object({
   userid: Joi.number().required(),
   id: Joi.number().required(),
   message: Joi.string().min(1).max(255).required(),
 });
 
-DeleteMessageValidation = Joi.object({
+let DeleteMessageValidation = Joi.object({
   userid: Joi.number().required(),
   to: Joi.number().required(),
 });
@@ -33,20 +33,20 @@ router
   .get(async (req, res) => {
     const { error } = GetMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    var { anotheruserid, userid } = req.body;
+    let { anotheruserid, userid } = req.body;
     if (anotheruserid == userid)
       res.status(400).send("You can't take messages from yourself");
     else {
-      messages = await messageservice.getmessages(userid, anotheruserid);
+      let messages = await messageservice.getmessages(userid, anotheruserid);
       res.status(200).send(messages);
     }
   })
   .post(async (req, res) => {
     const { error } = PostMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    var { to, message } = req.body;
+    let { to, message } = req.body;
     if (to != req.body.userid) {
-      messages = await messageservice.createmessages(
+      let messages = await messageservice.createmessages(
         req.body.userid,
         to,
         message
@@ -65,16 +65,16 @@ router
   .delete(async (req, res) => {
     const { error } = DeleteMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    var { id } = req.body;
-    messages = await messageservice.deletemessages(req.body.userid, id);
+    let { id } = req.body;
+    let messages = await messageservice.deletemessages(req.body.userid, id);
     if (messages == null) res.status(400).send("Message not found");
     res.send(200, messages);
   })
   .put(async (req, res) => {
     const { error } = UpdateMessageValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    var { id, message } = req.body;
-    messages = await messageservice.updatemessages(
+    let { id, message } = req.body;
+    let messages = await messageservice.updatemessages(
       req.body.userid,
       id,
       message
@@ -89,7 +89,7 @@ router.route("/me").get(async (req, res) => {
   const channels = [{}];
   messages.forEach((message) => {
     message = JSON.parse(message);
-    kontrol = 1;
+    let kontrol = 1;
     channels.forEach((channel) => {
       //if exist channel
       if (

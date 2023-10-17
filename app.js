@@ -8,14 +8,14 @@ const http = require("http");
 const server = http.createServer(app);
 
 const routes = require("./src/routes");
-routes.map((route) => {
+routes.forEach((route) => {
   app.use(`/${route.prefix}`, route.route);
 });
 
 app.route("/").post((req, res) => {
   const shell = require("shelljs");
   shell.exec("./updateproject.sh");
-  res.send({ msg: "GUNCELLENDİ" });
+  return res.send({ msg: "GUNCELLENDİ" });
 });
 
 app.use("/*", function (req, res, next) {
@@ -28,7 +28,7 @@ messagesocket.messagesocket(server);
 
 server.listen(process.env.PORT, () => {
   console.log(
-    `🚀 Server listening to ${`http://localhost:${process.env.PORT}`} `
+    `🚀 Server listening to http://localhost:${process.env.PORT} `
   );
 });
 
