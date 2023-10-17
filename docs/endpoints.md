@@ -1,14 +1,18 @@
 # Endpoints
+
 ## USER
 
-
 ### POST /api/profile/
+
 - REQUEST
+
 ```javascript
-    {
-    }
-``` 
+{
+}
+```
+
 - RESPONSE
+
 ```javascript
     {
         "id":,
@@ -16,11 +20,12 @@
         "email":,
         "created_at":
     }
-``` 
-
+```
 
 ### POST /api/profile/register
+
 - REQUEST
+
 ```javascript
     {
         "nickname":,
@@ -28,8 +33,10 @@
         "password":,
         "cpassword":
     }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         "nickname":,
@@ -38,10 +45,12 @@
         "password_hash",
         "created_at":
     }
-``` 
+```
 
 ### POST /api/profile/login
+
 - REQUEST
+
 ```javascript
     {
         "message":,
@@ -51,22 +60,28 @@
             "expired_at"
     }
 }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         "email":,
         "password":,
     }
-``` 
+```
 
 ### GET /api/profile/:id
+
 - REQUEST
+
 ```javascript
-    {
-    }
-``` 
+{
+}
+```
+
 - RESPONSE
+
 ```javascript
     {
         "nickname":,
@@ -75,15 +90,19 @@
         "password_hash",
         "created_at":
     }
-``` 
+```
 
 ### GET /api/profile/:slug/notes
+
 - REQUEST
+
 ```javascript
-    {
-    }
-``` 
+{
+}
+```
+
 - RESPONSE
+
 ```javascript
     {
         {
@@ -104,16 +123,23 @@
         .
         .
     }
-``` 
+```
+
 --
+
 ## NOTES
+
 ### GET /api/notes/:slug
+
 - REQUEST
+
 ```javascript
-    {
-    }
-``` 
+{
+}
+```
+
 - RESPONSE
+
 ```javascript
     {
         {
@@ -145,42 +171,56 @@
         .
 
     }
-    
+
 ```
+
 ### POST /api/notes/:id/like
+
 - REQUEST
+
 ```javascript
-    {
-    }
-``` 
-- RESPONSE
-```javascript
-    {
-        "LİKED!"
-    }
+{
+}
 ```
-### POST /api/notes/:id/dislike
-- REQUEST
-```javascript
-    {
-    }
-``` 
+
 - RESPONSE
+
 ```javascript
-    {
-        "DİSLİKED!"
-    }
+{
+  ("LİKED!");
+}
+```
+
+### POST /api/notes/:id/dislike
+
+- REQUEST
+
+```javascript
+{
+}
+```
+
+- RESPONSE
+
+```javascript
+{
+  ("DİSLİKED!");
+}
 ```
 
 ### POST /api/notes/:slug
+
 - REQUEST
+
 ```javascript
     {
         "notetext":,
          "isanonymus":
     }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         "id":,
@@ -197,12 +237,16 @@
 ```
 
 ### DELETE /api/notes/:id
+
 - REQUEST
+
 ```javascript
-    {
-    }
-``` 
+{
+}
+```
+
 - RESPONSE
+
 ```javascript
     {
         "id":,
@@ -217,15 +261,20 @@
         "deleted_at":
     }
 ```
+
 ### PUT /api/notes/:slug
+
 - REQUEST
+
 ```javascript
     {
         "notetext":,
         "isanonymus":
     }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         "id":,
@@ -240,16 +289,23 @@
         "deleted_at":
     }
 ```
+
 ---
+
 ## MESSAGES
+
 ### GET /api/messages/
+
 - REQUEST
+
 ```javascript
     {
         "to":
     }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         {
@@ -277,14 +333,18 @@
 ```
 
 ### POST /api/messages/
+
 - REQUEST
+
 ```javascript
     {
         "to":,
         "message":,
     }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         {
@@ -300,13 +360,17 @@
 ```
 
 ### DELETE /api/messages/
+
 - REQUEST
+
 ```javascript
     {
         "id":,
     }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         {
@@ -320,15 +384,20 @@
         }
     }
 ```
+
 ### UPDATE /api/messages/
+
 - REQUEST
+
 ```javascript
     {
         "id":,
         "message":,
     }
-``` 
+```
+
 - RESPONSE
+
 ```javascript
     {
         {

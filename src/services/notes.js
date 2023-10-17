@@ -10,7 +10,7 @@ async function createnote(userid, title, notetext, isanonymus) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return note.rows[0];
 }
@@ -24,7 +24,7 @@ async function updatenote(id, noteId, notetext, isanonymus) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return note.rows[0];
 }
@@ -37,7 +37,7 @@ async function deletenote(noteid, userid) {
       if (err) {
         return err;
       }
-    }
+    },
   );
   return note.rows[0];
 }
@@ -49,7 +49,7 @@ async function getnotebytitle(title) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return note.rows;
 }
@@ -61,7 +61,7 @@ async function getnotebyuserid(userid) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return note.rows;
 }
@@ -73,7 +73,7 @@ async function likenote(userid, id) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return note.rows;
 }
@@ -85,7 +85,7 @@ async function dislikenote(userid, id) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return note.rows;
 }
@@ -105,7 +105,7 @@ async function getnotebynickname(nickname) {
         if (err) {
           console.log(err);
         }
-      }
+      },
     );
     return note.rows;
   }

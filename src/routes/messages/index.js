@@ -49,13 +49,13 @@ router
       let messages = await messageservice.createmessages(
         req.body.userid,
         to,
-        message
+        message,
       );
       const redisClient = await new RedisService().getClient();
       await redisClient.lPush(`messages:${to}`, JSON.stringify(messages));
       await redisClient.lPush(
         `messages:${req.body.userid}`,
-        JSON.stringify(messages)
+        JSON.stringify(messages),
       );
       res.status(200).send(messages);
     } else {
@@ -77,7 +77,7 @@ router
     let messages = await messageservice.updatemessages(
       req.body.userid,
       id,
-      message
+      message,
     );
     res.send(200, messages);
   });

@@ -9,7 +9,7 @@ async function gettokenwithid(userid) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return token.rows;
 }
@@ -22,7 +22,7 @@ async function gettokenwithvalue(tokenvalue) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return token.rows[0];
 }
@@ -40,7 +40,7 @@ async function createtoken(userid) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return token.rows[0];
 }
