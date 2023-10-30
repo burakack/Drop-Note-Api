@@ -29,7 +29,7 @@
     "shelljs": "^0.8.5",
     "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.4",
-    "update-notifier": "^6.0.2"
+    "update-notifier": "^7.0.0"
   },
   "devDependencies": {
     "chai": "^4.3.6",
