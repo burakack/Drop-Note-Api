@@ -18,8 +18,6 @@ ENV host=database
 
 ENV user=postgres
 
-ENV password=postgres
-
 ENV REDIS_HOST=cache
 
 COPY . ./app
