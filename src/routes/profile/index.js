@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
     let hash = user.password_hash;
     let salt = user.password_salt;
     let dbpassword = cryptojs.AES.decrypt(hash, salt).toString(
-      cryptojs.enc.Utf8
+      cryptojs.enc.Utf8,
     );
     if (dbpassword == password)
       res.status(200).send({ message: "LOGGED İN", token: token });

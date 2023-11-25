@@ -46,7 +46,7 @@ router
       userid,
       req.params.slug,
       notetext,
-      isanonymus
+      isanonymus,
     );
     res.status(200).send(notes);
   });

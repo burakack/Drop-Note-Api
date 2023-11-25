@@ -9,7 +9,7 @@ async function getuserwithnickname(nickname) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   if (user.rowCount != 0) return user.rows[0];
   else return { message: "User not found nickname" };
@@ -23,7 +23,7 @@ async function getuserwithemail(email) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   if (user.rowCount != 0) return user.rows[0];
   else return { message: "User not found email" };
@@ -37,7 +37,7 @@ async function getuserwithid(id) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   if (user.rowCount != 0) return user.rows[0];
   else return { message: "User not found id" };
@@ -46,7 +46,7 @@ async function getuserwithid(id) {
 async function createuser(nickname, email, password) {
   let date = await db.query("SELECT NOW()");
   let password_salt =
-  Math.random().toString(36).substring(2, 20) +
+    Math.random().toString(36).substring(2, 20) +
     date.rows[0].now.toString().substring(20, 25);
   let password_hash = cryptojs.AES.encrypt(password, password_salt).toString();
   let user = await db.query(
@@ -54,7 +54,7 @@ async function createuser(nickname, email, password) {
     [nickname, email, password_salt, password_hash, date.rows[0].now],
     (err, res) => {
       console.log(err, res.rows[0]);
-    }
+    },
   );
   return user.rows[0];
 }
@@ -67,7 +67,7 @@ async function deleteuser(id) {
       if (err) {
         console.log(err);
       }
-    }
+    },
   );
   return user.rows[0];
 }
@@ -77,14 +77,14 @@ async function changepassworduser(password, id) {
   let password_salt = Math.random().toString(36).substring(2, 20);
   let password_hash = cryptojs.AES.encrypt(
     password,
-    date.rows[0].now.toString() + password_salt
+    date.rows[0].now.toString() + password_salt,
   ).toString();
   let user = await db.query(
     "UPDATE SET password_salt=$1,password_hash=$2,updated_at=$3 WHERE id=$4 RETURNING *",
     [password_salt, password_hash, date.rows[0].now, id],
     (err, res) => {
       console.log(err, res.rows[0]);
-    }
+    },
   );
   return user.rows[0];
 }
